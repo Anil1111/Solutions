@@ -185,5 +185,95 @@ namespace Solutions
             return true;
         }
         #endregion
+
+        #region anagrams
+        /// <summary>
+        /// basic answer, using recursive calls
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public List<string> anagrams(string input)
+        {
+            HashSet<string> ret = new HashSet<string>();
+
+            if (input.Length > 1)
+            {
+                for (int i = 0; i < input.Length; i++)
+                {
+                    string subinput = input.Substring(0, i) + input.Substring(i + 1, input.Length - i - 1);
+
+                    string singlechar = input.Substring(i, 1);
+                    List<string> subanagrams = anagrams(subinput);
+
+                    //Console.WriteLine("{0} {1} {2}", singlechar, subinput, subanagrams.Count);
+
+                    //combine the letter
+                    foreach (string subanagram in subanagrams)
+                    {
+                        for (int j = 0; j <= subanagram.Length; j++)
+                        {
+                            string newstring = subanagram.Insert(j, singlechar);
+                            if (!ret.Contains(newstring)) ret.Add(newstring);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                ret.Add(input);
+            }
+
+            return ret.ToList();
+        }
+        #endregion
+
+        #region anagrams optimized
+        /// <summary>
+        /// for sub anagram, only need to take unique single char from input
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public List<string> anagramsOptimized(string input)
+        {
+            HashSet<string> ret = new HashSet<string>();
+            HashSet<char> charSet = new HashSet<char>();
+
+            if (input.Length > 1)
+            {
+                for (int i = 0; i < input.Length; i++)
+                {
+                    if (charSet.Contains(input[i]))
+                    {
+                        continue;
+                    }
+
+                    //calculate anagram from subinput
+                    charSet.Add(input[i]);
+
+                    string singlechar = input.Substring(i, 1);
+                    string subinput = input.Substring(0, i) + input.Substring(i + 1, input.Length - i - 1);
+                    List<string> subanagrams = anagrams(subinput);
+
+                    //Console.WriteLine("{0} {1} {2}", singlechar, subinput, subanagrams.Count);
+
+                    //combine the singlechar back to anagrams from subinput
+                    foreach (string subanagram in subanagrams)
+                    {
+                        for (int j = 0; j <= subanagram.Length; j++)
+                        {
+                            string newstring = subanagram.Insert(j, singlechar);
+                            if (!ret.Contains(newstring)) ret.Add(newstring);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                ret.Add(input);
+            }
+
+            return ret.ToList();
+        }
+        #endregion
     }
 }
