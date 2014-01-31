@@ -148,5 +148,42 @@ namespace Solutions
             return ret.Count;
         }
         #endregion
+
+        #region isAnagram
+        private Dictionary<char, int> StringToCharDict(string input1)
+        {
+            Dictionary<char, int> dict = new Dictionary<char, int>();
+            foreach (char c in input1.ToCharArray())
+            {
+                if (dict.ContainsKey(c))
+                {
+                    dict[c]++;
+                }
+                else
+                {
+                    dict[c] = 1;
+                }
+            }
+
+            return dict;
+        }
+
+        public bool isAnagram(string input1, string input2)
+        {
+            if (input1.Length != input2.Length) return false;
+
+            Dictionary<char, int> dict1 = StringToCharDict(input1),
+                dict2 = StringToCharDict(input2);
+
+            if (dict1.Keys.Count != dict2.Keys.Count) return false;
+
+            foreach (Char c in dict1.Keys)
+            {
+                if (dict1[c] != dict2[c]) return false;
+            }
+
+            return true;
+        }
+        #endregion
     }
 }
