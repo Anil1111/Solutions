@@ -186,13 +186,13 @@ namespace Solutions
         }
         #endregion
 
-        #region anagrams
+        #region generate all anagrams
         /// <summary>
         /// basic answer, using recursive calls
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public List<string> anagrams(string input)
+        public List<string> allAnagrams(string input)
         {
             HashSet<string> ret = new HashSet<string>();
 
@@ -203,7 +203,7 @@ namespace Solutions
                     string subinput = input.Substring(0, i) + input.Substring(i + 1, input.Length - i - 1);
 
                     string singlechar = input.Substring(i, 1);
-                    List<string> subanagrams = anagrams(subinput);
+                    List<string> subanagrams = allAnagrams(subinput);
 
                     //Console.WriteLine("{0} {1} {2}", singlechar, subinput, subanagrams.Count);
 
@@ -227,13 +227,13 @@ namespace Solutions
         }
         #endregion
 
-        #region anagrams optimized
+        #region generate all anagrams optimized
         /// <summary>
         /// for sub anagram, only need to take unique single char from input
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public List<string> anagramsOptimized(string input)
+        public List<string> allAnagramsOptimized(string input)
         {
             HashSet<string> ret = new HashSet<string>();
             HashSet<char> charSet = new HashSet<char>();
@@ -252,7 +252,7 @@ namespace Solutions
 
                     string singlechar = input.Substring(i, 1);
                     string subinput = input.Substring(0, i) + input.Substring(i + 1, input.Length - i - 1);
-                    List<string> subanagrams = anagrams(subinput);
+                    List<string> subanagrams = allAnagramsOptimized(subinput);
 
                     //Console.WriteLine("{0} {1} {2}", singlechar, subinput, subanagrams.Count);
 
