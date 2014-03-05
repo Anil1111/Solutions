@@ -275,5 +275,64 @@ namespace Solutions
             return ret.ToList();
         }
         #endregion
+
+        #region stave
+        double center(string input, out int sum){
+            sum = 0;
+            int weightedsum = 0;
+            for(int i=0;i<input.Length;i++){
+                int digit = Convert.ToInt32(input[i]);
+                sum+=digit;
+                weightedsum += (i+1)*digit;
+            }                       
+            return weightedsum/(double)sum;
+        }
+                
+        bool closeenough(double c1, double c2){
+            double diff = Math.Abs(c1 - c2);
+            return (diff < 0.0000001);
+        }
+
+        /// <summary>
+        /// TODO: possible optimization, char to int once
+        /// for each calculation, save the intermediate sum and weightedsum
+        /// </summary>
+        /// <param name="input"></param>
+        public void stave(string input)
+        {
+            int length = input.Length / 2;
+            //search length backward
+            for (int len = length; len > 0; len--)
+            {
+                try
+                {
+                    //start index of first half
+                    for (int j = 0; j < input.Length - len * 2; j++)
+                    {
+                        int sum;
+                        double cent = center(input.Substring(j, len), out sum);
+                        //Console.WriteLine("a {0} {1} {2} {3} {4}", len, j, len, cent, sum);
+                        //start index of second half
+                        for (int k = j + len; k < input.Length - len; k++)
+                        {
+                            int testsum;
+                            double testcent = center(input.Substring(k, len), out testsum);
+                            //Console.WriteLine("b {0} {1} {2} {3} {4} {5}", j, k, len, testcent, sum, testsum);
+                            if (sum == testsum && (closeenough(cent, testcent) ||
+                                  closeenough((len - testcent), cent)))
+                            {
+                                Console.WriteLine("{0} {1} {2}", j, k, len);
+                                return;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //Console.WriteLine("{0} {1}", ex.Message, ex.StackTrace);
+                }
+            }
+        }
+        #endregion
     }
 }
