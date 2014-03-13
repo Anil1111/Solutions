@@ -103,4 +103,19 @@ public class Solution {
         
         return results[last-1];
     }
+    
+    public boolean hasCycle(ListNode head) {
+        ListNode one = head, two = head;
+        while(one != null && two !=null){
+            one = one.next;
+            two = two.next;
+            if (two != null){ 
+                two = two.next;
+                if (one !=null && two !=null && one == two) return true;
+            }
+            else return false;
+        };
+        
+        return false;
+    }
 }
