@@ -48,4 +48,15 @@ public class Solution {
         }
         else return false;
     }
+    
+    public String reverseWords(String s) {
+        String[] list = s.split(" ");
+        StringBuilder sb = new StringBuilder(s.length());
+        for(int i=list.length-1;i>=0;i--){
+            if (list[i].trim().length() ==0)continue;
+            sb.append(list[i]);
+            sb.append(" ");
+        }
+        return sb.toString().trim();
+    }
 }
