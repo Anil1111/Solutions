@@ -49,6 +49,19 @@ public class Solution {
         else return false;
     }
     
+    public boolean isValidBST(TreeNode root) {
+        return isValidBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+    
+    private boolean isValidBST(TreeNode node, int min, int max){
+        if (node == null) return true;
+        else if (node.left!=null && (node.left.val >= node.val || node.left.val <= min)) return false;
+        else if (node.right !=null && (node.right.val <= node.val || node.right.val >= max)) return false;
+        else{
+            return isValidBST(node.left, min, node.val) && isValidBST(node.right, node.val, max);
+        }
+    }
+    
     public String reverseWords(String s) {
         String[] list = s.split(" ");
         StringBuilder sb = new StringBuilder(s.length());
