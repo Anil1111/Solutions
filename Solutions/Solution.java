@@ -72,4 +72,35 @@ public class Solution {
         }
         return sb.toString().trim();
     }
+    
+    public int evalRPN(String[] tokens) {
+        int[] results = new int[tokens.length];
+        int last = 0;
+        for(int i=0;i<tokens.length;i++){
+            switch(tokens[i]){
+                case "+":
+                    results[last-2]=results[last-2] + results[last-1];
+                    last --;
+                    break;
+                case "-":
+                    results[last-2]=results[last-2] - results[last-1];
+                    last --;
+                    break;
+                case "*":
+                    results[last-2]=results[last-2] * results[last-1];
+                    last --;
+                    break;
+                case "/":
+                    results[last-2]=results[last-2] / results[last-1];
+                    last --;
+                    break;
+                default:
+                    results[last] = Integer.parseInt(tokens[i]);
+                    last++;
+                    break;
+            }
+        }
+        
+        return results[last-1];
+    }
 }
