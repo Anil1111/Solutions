@@ -109,4 +109,22 @@ public class Solution {
         
         return false;
     }
+    
+    //import java.util.Hashtable; 
+    public int[] twoSum(int[] numbers, int target) {
+        Hashtable<Integer,Integer> table = new Hashtable<Integer,Integer>();
+        for(int i=0;i<numbers.length;i++){
+            table.put(numbers[i], i);
+        }
+        for(int i=0;i<numbers.length;i++){
+            Integer rest = target - numbers[i];
+            if (table.containsKey(rest) && table.get(rest) != i){
+                int[] ret = new int[2];
+                ret[0] = i+1;
+                ret[1] = table.get(rest)+1;
+                return ret;
+            }
+        }
+        return null;
+    }
 }
