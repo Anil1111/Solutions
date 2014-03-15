@@ -150,4 +150,20 @@ public class Solution {
     	
     	return ret;
     }
+    
+    public ArrayList<Integer> preorderTraversal(TreeNode root) {
+    	ArrayList<Integer> ret = new ArrayList<Integer>();
+        Stack<TreeNode> list = new Stack<TreeNode>();
+        
+        if (root != null) list.add(root);
+        while(list.size()>0){
+        	TreeNode node = list.pop();
+        	ret.add(node.val);
+        	
+        	if (node.right != null) list.push(node.right);
+        	if (node.left != null) list.push(node.left);
+        }
+        
+        return ret;
+    }    
 }
