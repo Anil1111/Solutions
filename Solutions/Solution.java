@@ -127,4 +127,15 @@ public class Solution {
         }
         return null;
     }
+    
+    public int maxDepth(TreeNode root) {
+        if(root == null) return 0;
+        else {
+        	int left = 0;
+        	if (root.left != null) left = maxDepth(root.left);
+        	int right = 0;
+        	if (root.right != null) right = maxDepth(root.right);
+        	return left > right ? left + 1 : right + 1;
+        }
+    }
 }
