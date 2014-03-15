@@ -138,4 +138,16 @@ public class Solution {
         	return left > right ? left + 1 : right + 1;
         }
     }
+    
+    public int reverse(int x) {
+        //overflow? ending with 0?
+    	int ret = 0;
+    	while(x != 0){
+    		int digit = x % 10;
+    		x = x / 10;
+    		ret = ret * 10 + digit;
+    	}
+    	
+    	return ret;
+    }
 }
