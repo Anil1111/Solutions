@@ -166,4 +166,24 @@ public class Solution {
         
         return ret;
     }    
+
+    public ArrayList<Integer> inorderTraversal(TreeNode root) {
+        ArrayList<Integer> ret = new ArrayList<Integer>();
+        Stack<TreeNode> list = new Stack<TreeNode>();
+        
+        TreeNode node = root;
+        while(node != null || list.size()>0){
+        	if (node != null) {
+        		list.push(node);
+        		node = node.left;
+        	}
+        	else{
+        		node = list.pop();
+        		ret.add(node.val);
+        		node = node.right;
+        	}
+        }
+        
+        return ret;
+    }    
 }
