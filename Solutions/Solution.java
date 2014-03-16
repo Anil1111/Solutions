@@ -212,4 +212,72 @@ public class Solution {
     	
     	return new ArrayList<String>(ret);
     }    
+    
+    public static void Test_longestValidParentheses(){
+		Solution instance = new Solution();
+		String[] testcases = new String[] {"()())", "", ")(", "()", "(()", "())", "(", ")", "()()", "())()", "()(()","(((())))((()))", "))))((((",
+				"((()))())", "(()(((()", "(()(((("};
+		int[] answers = new int[]{4, 0, 0, 2, 2, 2, 0, 0, 4, 2, 2, 14, 0, 8, 2, 2};
+		for (int i=0;i<testcases.length;i++){
+			int answer = instance.longestValidParentheses(testcases[i]);
+			if (answers[i] != answer) System.out.printf("%s -> %d WRONG %d\r\n", testcases[i], answers[i], answer);
+			else System.out.printf("%s -> %d \r\n", testcases[i], answer);
+		}
+    }
+
+    public int longestValidParentheses(String s) {
+   	int balance = 0, lastlen = 0, len = 0, maxlen = 0;
+    	
+    	for(int i=0;i<s.length();i++){
+    		if (s.charAt(i) == '(') balance ++;
+    		else balance --;
+
+    		len ++;
+    		if (balance < 0){
+    			len = 0;
+    			//not continuous balance 0 so cannot be counted together
+    			lastlen = 0;
+    			balance = 0;
+    		}
+    		else if (balance == 0){
+    			lastlen += len;
+    			
+    			maxlen = lastlen > maxlen ? lastlen : maxlen;
+    			
+    			len = 0;
+    		}
+
+    	}
+    	
+    	int leftmax = lastlen > maxlen ? lastlen : maxlen;
+    	
+    	balance = 0;
+    	lastlen = 0; 
+    	len = 0; 
+    	maxlen = 0;
+    	
+    	for(int i=s.length()-1;i>=0;i--){
+    		if (s.charAt(i) == ')') balance ++;
+    		else balance --;
+    		
+			len ++;
+    		if (balance < 0){
+    			len = 0;
+    			//not continuous balance 0 so cannot be counted together
+    			lastlen = 0;
+    			balance = 0;
+    		}
+    		else if (balance == 0){
+    			lastlen += len;
+    			
+    			maxlen = lastlen > maxlen ? lastlen : maxlen;
+    			
+    			len = 0;
+    		}
+
+    	}
+  	
+    	return maxlen > leftmax ? maxlen : leftmax;
+    }
+    
 }
