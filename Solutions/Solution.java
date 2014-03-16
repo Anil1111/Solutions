@@ -186,4 +186,30 @@ public class Solution {
         
         return ret;
     }    
+    
+    public ArrayList<String> generateParenthesis(int n) {
+        HashSet<String> ret = new HashSet<String>();
+    	
+    	if (n == 1) ret.add("()");
+    	else{
+    		ArrayList<String> sublist = generateParenthesis(n - 1);
+    		for(String sub : sublist){
+    			ret.add("("+sub+")");
+    			ret.add("()"+sub);
+    			ret.add(sub+"()");
+    		}
+    		for (int i=2;i<=n/2;i++){
+    			sublist = generateParenthesis(n - i);
+    			ArrayList<String> restlist = generateParenthesis(i);
+    			for(String sub : sublist){
+    				for(String rest : restlist){
+    					ret.add(sub+rest);
+    					ret.add(rest+sub);
+    				}
+    			}
+    		}
+    	}
+    	
+    	return new ArrayList<String>(ret);
+    }    
 }
