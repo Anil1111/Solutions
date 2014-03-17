@@ -354,5 +354,36 @@ public class Solution {
     	return ret;     
     }    
     
-    
+    public int atoi(String str) {
+        int ret = 0; 
+        int sign = 1;
+        str = str.trim();
+        
+        if (str.length()>0){
+        	char c = str.charAt(0);
+        	if (c == '-') sign = -1;
+        	else if (c == '+') sign = +1;
+        	else if (c >= '0' && c <= '9'){
+        		ret = (int)(c - '0');
+        	}
+        	
+        	for (int i=1;i<str.length();i++){
+        		c = str.charAt(i);
+        		if (c >= '0' && c <= '9'){
+        			int last = ret;
+        			ret = ret * 10 + (int)(c - '0');
+        			if (last < ret){
+        				ret = Integer.MAX_VALUE;
+        				break;
+        			}
+        		}
+        		else break;
+        	}
+        }
+        
+        ret *= sign;
+        
+        return ret;
+    }
+        
 }
