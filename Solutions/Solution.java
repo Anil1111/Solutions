@@ -366,16 +366,19 @@ public class Solution {
         	else if (c >= '0' && c <= '9'){
         		ret = (int)(c - '0');
         	}
+        	else return ret;
         	
         	for (int i=1;i<str.length();i++){
         		c = str.charAt(i);
         		if (c >= '0' && c <= '9'){
         			int last = ret;
-        			ret = ret * 10 + (int)(c - '0');
-        			if (last < ret){
-        				ret = Integer.MAX_VALUE;
-        				break;
+        			int val = c - '0';
+        			if (last > (Integer.MAX_VALUE - val)/ 10){
+        				if (sign == 1) ret = Integer.MAX_VALUE;
+        				else ret = Integer.MIN_VALUE;
+        				return ret;
         			}
+        			else ret = ret * 10 + val;
         		}
         		else break;
         	}
