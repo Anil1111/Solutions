@@ -305,5 +305,31 @@ public class Solution {
                 if(dp[k] && dict.contains(s.substring(k, i))) dp[i] = true;
         return dp[s.length()];
     }    
+
+    public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {  	
+    	ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
+    	if (root == null) return ret;
+    	
+    	ArrayList<TreeNode> list = new ArrayList<TreeNode>();
+    	list.add(root);
+    	while(list.size() > 0){
+    		ArrayList<TreeNode> next = new ArrayList<TreeNode>();
+    		ArrayList<Integer> level = new ArrayList<Integer>();
+
+    		for(TreeNode node : list){
+    			level.add(node.val);
+    			if (node.left != null) next.add(node.left);
+    			if (node.right != null) next.add(node.right);
+    		}
+    		
+    		list = next;
+    		ret.add(level);
+    	}
+    	
+    	return ret;
+    }
+    
+    
+    
     
 }
