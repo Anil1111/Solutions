@@ -329,7 +329,30 @@ public class Solution {
     	return ret;
     }
     
-    
+    public ArrayList<Integer> postorderTraversal(TreeNode root) {
+    	ArrayList<Integer> ret = new ArrayList<Integer>();
+    	Stack<TreeNode> stack = new Stack<TreeNode>();
+    	TreeNode node = root, lastpeek = null;
+    	while(node != null || stack.size()>0){
+    		if (node != null){
+    			stack.push(node);
+    			node = node.left;
+    		}
+    		else{
+    			TreeNode peek = stack.peek();
+    			if (peek.right != null && lastpeek != peek.right){
+    				node = peek.right;
+    			}
+    			else{
+    				stack.pop();
+    				ret.add(peek.val);
+    				lastpeek = peek;
+    			}
+    		}
+    	}
+    	
+    	return ret;     
+    }    
     
     
 }
