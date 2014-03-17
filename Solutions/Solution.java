@@ -267,4 +267,43 @@ public class Solution {
     	return maxlen > leftmax ? maxlen : leftmax;
     }
     
+    public static void Test_wordBreak(){
+    	Solution instance = new Solution();
+    	String input = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab";
+    	HashSet<String> dict  = new HashSet<String>();
+    	for (String word : new String[]{"a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"})
+    	{
+    		dict.add(word);
+    	}
+    	System.out.printf("%s %b\r\n", input, instance.wordBreak(input, dict));
+    }
+    
+    /**
+     * recursive, too slow
+     * @param s
+     * @param dict
+     * @return
+     */
+    public boolean wordBreak1(String s, Set<String> dict) {
+		for(String word : dict){
+	    	System.out.printf("%s %s\r\n", s, word);
+			if (s.startsWith(word)){
+				String temp = s.substring(word.length());
+				if (wordBreak(temp, dict)) return true;
+			}
+		}
+
+		return false;
+    }
+    
+    public boolean wordBreak(String s, Set<String> dict) {
+        if(s == null || dict == null) return false;
+        boolean[] dp = new boolean[s.length()+1];
+        dp[0] = true;
+        for(int i = 1; i <= s.length(); i++)
+            for(int k = 0; k < i; k++)
+                if(dp[k] && dict.contains(s.substring(k, i))) dp[i] = true;
+        return dp[s.length()];
+    }    
+    
 }
