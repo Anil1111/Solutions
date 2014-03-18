@@ -1,133 +1,31 @@
-public class Solution {
-    public boolean isPalindrome(String s) {
-        char[] list = new char[s.length()];
-        int size = 0;
-        for(int i=0;i<s.length();i++){
-            char c = Character.toLowerCase(s.charAt(i));
-            if ((c>='a' && c<='z') || (c>='0' && c<='9')){
-                list[size] = c;
-                size ++;
-            }
-        }
-        
-        if(size == 0) return true;
+import java.util.*;
 
-        int i=0, j=size-1;
-        while(i<j){
-            if (list[i] != list[j]) return false;
-            i++;
-            j--;
-        }
-        
-        return true;
-    }
-    
-    public int singleNumber(int[] A) {
-        if (A.length==0) return 0;
-        for(int i=1;i<A.length;i++){
-            A[0] ^= A[i];
-        }
-        return A[0];
-    }
-    
-    public boolean isSameTree(TreeNode p, TreeNode q) {
-        if (p == null && q == null) return true;
-        else if (p != null && q != null) 
-        {
-            if (p.val != q.val) return false;
-            else return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
-        }
-        else return false;
-    }
-    
-    public boolean isValidBST(TreeNode root) {
-        return isValidBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
-    }
-    
-    private boolean isValidBST(TreeNode node, int min, int max){
-        if (node == null) return true;
-        else if (node.left!=null && (node.left.val >= node.val || node.left.val <= min)) return false;
-        else if (node.right !=null && (node.right.val <= node.val || node.right.val >= max)) return false;
-        else{
-            return isValidBST(node.left, min, node.val) && isValidBST(node.right, node.val, max);
+
+public class Solution {
+	public class TreeNode {
+		      int val;
+		      TreeNode left;
+		      TreeNode right;
+		      TreeNode(int x) { val = x; }
+	}
+	
+    public class ListNode {
+        int val;
+        ListNode next;
+        ListNode(int x) {
+            val = x;
+            next = null;
         }
     }
-    
-    public String reverseWords(String s) {
-        String[] list = s.split(" ");
-        StringBuilder sb = new StringBuilder(s.length());
-        for(int i=list.length-1;i>=0;i--){
-            if (list[i].trim().length() ==0)continue;
-            sb.append(list[i]);
-            sb.append(" ");
-        }
-        return sb.toString().trim();
-    }
-    
-    public int evalRPN(String[] tokens) {
-        int[] results = new int[tokens.length];
-        int last = 0;
-        for(int i=0;i<tokens.length;i++){
-            switch(tokens[i]){
-                case "+":
-                    results[last-2]=results[last-2] + results[last-1];
-                    last --;
-                    break;
-                case "-":
-                    results[last-2]=results[last-2] - results[last-1];
-                    last --;
-                    break;
-                case "*":
-                    results[last-2]=results[last-2] * results[last-1];
-                    last --;
-                    break;
-                case "/":
-                    results[last-2]=results[last-2] / results[last-1];
-                    last --;
-                    break;
-                default:
-                    results[last] = Integer.parseInt(tokens[i]);
-                    last++;
-                    break;
-            }
-        }
-        
-        return results[last-1];
-    }
-    
-    public boolean hasCycle(ListNode head) {
-        ListNode one = head, two = head;
-        while(one != null && two !=null){
-            one = one.next;
-            two = two.next;
-            if (two != null){ 
-                two = two.next;
-                if (one !=null && two !=null && one == two) return true;
-            }
-            else return false;
-        };
-        
-        return false;
-    }
-    
-    //import java.util.Hashtable; 
-    public int[] twoSum(int[] numbers, int target) {
-        Hashtable<Integer,Integer> table = new Hashtable<Integer,Integer>();
-        for(int i=0;i<numbers.length;i++){
-            table.put(numbers[i], i);
-        }
-        for(int i=0;i<numbers.length;i++){
-            Integer rest = target - numbers[i];
-            if (table.containsKey(rest) && table.get(rest) != i){
-                int[] ret = new int[2];
-                ret[0] = i+1;
-                ret[1] = table.get(rest)+1;
-                return ret;
-            }
-        }
-        return null;
-    }
-    
+	 
+	public static void main(String[] args) {
+		//Test_longestValidParentheses();
+		//Test_wordBreak();
+		//Test_atoi();
+		Solution instance = new Solution();
+		instance.Test_sortList();
+	}
+	   
     public int maxDepth(TreeNode root) {
         if(root == null) return 0;
         else {
@@ -140,7 +38,7 @@ public class Solution {
     }
     
     public int reverse(int x) {
-        //overflow? ending with 0?
+    	//overflow? ending with 0?
     	int ret = 0;
     	while(x != 0){
     		int digit = x % 10;
@@ -165,10 +63,10 @@ public class Solution {
         }
         
         return ret;
-    }    
-
+    }
+    
     public ArrayList<Integer> inorderTraversal(TreeNode root) {
-        ArrayList<Integer> ret = new ArrayList<Integer>();
+    	ArrayList<Integer> ret = new ArrayList<Integer>();
         Stack<TreeNode> list = new Stack<TreeNode>();
         
         TreeNode node = root;
@@ -185,10 +83,10 @@ public class Solution {
         }
         
         return ret;
-    }    
-    
+    }
+
     public ArrayList<String> generateParenthesis(int n) {
-        HashSet<String> ret = new HashSet<String>();
+    	HashSet<String> ret = new HashSet<String>();
     	
     	if (n == 1) ret.add("()");
     	else{
@@ -211,8 +109,8 @@ public class Solution {
     	}
     	
     	return new ArrayList<String>(ret);
-    }    
-
+    }
+    
     public static void Test_longestValidParentheses(){
 		Solution instance = new Solution();
 		String[] testcases = new String[] {"()())", "", ")(", "()", "(()", "())", "(", ")", "()()", "())()", "()(()","(((())))((()))", "))))((((",
@@ -304,7 +202,7 @@ public class Solution {
             for(int k = 0; k < i; k++)
                 if(dp[k] && dict.contains(s.substring(k, i))) dp[i] = true;
         return dp[s.length()];
-    }    
+    }
 
     public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {  	
     	ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
@@ -351,9 +249,19 @@ public class Solution {
     		}
     	}
     	
-    	return ret;     
-    }    
+    	return ret;
+    }
     
+    public static void Test_atoi(){
+    	Solution instance = new Solution();
+    	String str = "2147483648";
+    	System.out.printf("%s %d\r\n", str, instance.atoi(str));
+    	str = "+1";
+    	System.out.printf("%s %d\r\n", str, instance.atoi(str));
+    	str = " 10522545459";
+    	System.out.printf("%s %d\r\n", str, instance.atoi(str));
+    }
+
     public int atoi(String str) {
         int ret = 0; 
         int sign = 1;
@@ -388,5 +296,96 @@ public class Solution {
         
         return ret;
     }
+    
+   
+    void Test_sortList(){
+    	ListNode node = new Solution.ListNode(3);
+    	ListNode head = node;
+    	for(int i : new int[]{4,1}){
+    		ListNode next = new ListNode(i);
+    		node.next = next;
+    		node = next;
+    	}
+    	node = sortList(head);    	
+    	while(node != null){
+    		System.out.printf("%d ", node.val);
+    		node = node.next;
+    	}
+    	System.out.println();
+    	node = new Solution.ListNode(4);
+    	head = node;
+    	for(int i : new int[]{2,1,3}){
+    		ListNode next = new ListNode(i);
+    		node.next = next;
+    		node = next;
+    	}
+    	node = sortList(head);    	
+    	while(node != null){
+    		System.out.printf("%d ", node.val);
+    		node = node.next;
+    	}
+    	System.out.println();
+    }
+      
+    public ListNode sortList1(ListNode head){ 
+    	ListNode ret = head;
+    	ListNode next = null;
+    	if (head != null){ 
+    		next = head.next;
+    		head.next = null;
+    	}
+    	while(next != null){
+    		System.out.printf("next %d\r\n", next.val);
+    		ListNode node = ret, previous = null;
+    		while(node != null && node.val < next.val){
+    			previous = node;
+    			node = node.next;
+    		}
+    		if (previous != null) {
+    			//System.out.printf("previous %d\r\n", previous.val);
+
+    			ListNode temp = next.next;
+    			next.next = previous.next;
+    			previous.next = next;
+    			
+    			next = temp;
+    		}
+    		else{
+    			//System.out.printf("first %d\r\n", ret.val);
+    			
+    			//insert as first
+    			ListNode temp = next.next;
+    			
+    			ret = next;
+    			next.next = node;
+    			
+    			next = temp;
+    		}
+    	}
+    	return ret;
+    }
+    
+    //TODO: merge sort
+    public ListNode sortList(ListNode head){
+    	ListNode ret = head;
+    	
+    	return ret;
+    }
+            
+    public int removeDuplicates(int[] A) {
+        int offset = 0;
         
+        for(int i=1;i<A.length;i++){
+        	if (A[i] == A[i-1]){
+        		offset ++;
+        	}
+        	else if (offset > 0){
+        		A[i-offset] = A[i];
+        	}
+        }
+        
+        return A.length - offset;
+    }
 }
+
+
