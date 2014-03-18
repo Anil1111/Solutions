@@ -22,8 +22,9 @@ public class Solution {
 		//Test_longestValidParentheses();
 		//Test_wordBreak();
 		//Test_atoi();
-		Solution instance = new Solution();
-		instance.Test_sortList();
+		Solution solution = new Solution();
+		//solution.Test_sortList();
+		//solution.Test_removeDuplicates();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -372,16 +373,58 @@ public class Solution {
     	return ret;
     }
             
-    public int removeDuplicates(int[] A) {
+    public int removeDuplicates1(int[] A) {
         int offset = 0;
         
         for(int i=1;i<A.length;i++){
         	if (A[i] == A[i-1]){
         		offset ++;
         	}
-        	else if (offset > 0){
+        	if (offset > 0){
         		A[i-offset] = A[i];
         	}
+        }
+        
+        return A.length - offset;
+    }
+    
+    public void Test_removeDuplicates(){
+    	int[] A = new int[]{1,1,2,2};
+    	int len = removeDuplicates(A);
+    	for(int i=0;i<len;i++){
+    		System.out.printf("%d ", A[i]);
+    	}
+    	System.out.println();
+    	A = new int[]{1,1,1,1,3,3};
+    	len = removeDuplicates(A);
+    	for(int i=0;i<len;i++){
+    		System.out.printf("%d ", A[i]);
+    	}
+    	System.out.println();
+    }
+    
+    /**
+     * allow up to 2 duplicates
+     * @param A
+     * @return
+     */
+    public int removeDuplicates(int[] A) {
+        int offset = 0, state = 0;
+        
+        for(int i=1;i<A.length;i++){
+        	if (A[i] == A[i-1]){
+        		state ++;
+        		if (state > 1){
+        			offset ++;
+        		}
+        	}
+        	else{ 
+        		state = 0;
+        	}
+        	
+    		if (offset > 0){
+        		A[i-offset] = A[i];
+    		}
         }
         
         return A.length - offset;
