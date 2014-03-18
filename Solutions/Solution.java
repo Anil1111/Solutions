@@ -25,7 +25,8 @@ public class Solution {
 		Solution solution = new Solution();
 		//solution.Test_sortList1();
 		//solution.Test_removeDuplicates();
-		solution.Test_sortList();
+		//solution.Test_sortList();
+		//solution.Test_isValidSudoku();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -521,8 +522,86 @@ public class Solution {
     	//merge sorted lists    	
     	return mergeSortedList(list1, list2);
     }
+    
+    public void Test_isValidSudoku(){
+    	String[] lines = new String[]{".........",
+    								  "4........",
+    								  "......6..",
+    								  "...38....",
+    								  ".5...6..1",
+    								  "8......6.",
+    								  ".........",
+    								  "..7.9....",
+    								  "...6....."};
+    	char[][] board = new char[9][9];
+    	for(int i=0;i<9;i++){
+    		for(int j=0;j<9;j++){
+    			board[i][j] = lines[i].charAt(j);
+    		}
+    	}
+    	System.out.printf("%b true\r\n", isValidSudoku(board));
+    	
+    	lines = new String[]{"..4...63.",
+    						 ".........",
+    						 "5......9.",
+    						 "...56....",
+    						 "4.3.....1",
+    						 "...7.....",
+    						 "...5.....",
+    						 ".........",
+    						 "........."};
+    	for(int i=0;i<9;i++){
+    		for(int j=0;j<9;j++){
+    			board[i][j] = lines[i].charAt(j);
+    		}
+    	}
+    	System.out.printf("%b false\r\n", isValidSudoku(board));
+    }
 
-
+    public boolean isValidSudoku(char[][] board) {
+    	boolean[][] horizontal = new boolean[9][9];
+    	boolean[][] vertical = new boolean[9][9];
+    	boolean[][] squares = new boolean[9][9];
+        for (int i=0;i<9;i++){
+        	for (int j=0;j<9;j++){        		
+        		char ch = board[i][j];
+        		if (ch != '.'){
+        			if (horizontal[i][ch-'1']) {
+        				//System.out.printf("H %d %d\r\n", i, ch-'1');
+        				return false;        			
+        			}
+        			else horizontal[i][ch-'1'] = true;
+        		}
+        		ch = board[j][i];
+        		if (ch != '.'){
+        			if (vertical[i][ch-'1']){
+        				//System.out.printf("V %d %d\r\n", j, ch-'1');
+        				return false;
+        			}
+        			else vertical[i][ch-'1'] = true;
+        		}
+        		
+        		if (i%3==0&&j%3==0){
+	        		for(int k=0;k<3;k++){
+	        			for(int l=0;l<3;l++){
+	        				ch = board[i+k][j+l];
+                			//System.out.printf("%d %d %c\r\n", i+k, j+l, ch);
+	                		if (ch != '.'){
+		        				//System.out.printf("S %d %d %d %d\r\n", i/3+j, i+k, j+l, ch-'1');
+	                			if (squares[i/3+j][ch-'1']){ 
+	                				//System.out.printf("S %d %d\r\n", i/3+j, ch-'1');
+	                				return false;	                			
+	                			}
+	                			else squares[i/3+j][ch-'1'] = true;
+	                		}
+	        			}
+	        		}
+        		}
+        	}
+        }       
+       
+        return true;
+    }
 
 
 }
