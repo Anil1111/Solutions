@@ -23,8 +23,9 @@ public class Solution {
 		//Test_wordBreak();
 		//Test_atoi();
 		Solution solution = new Solution();
-		//solution.Test_sortList();
+		//solution.Test_sortList1();
 		//solution.Test_removeDuplicates();
+		solution.Test_sortList();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -299,7 +300,7 @@ public class Solution {
     }
     
    
-    void Test_sortList(){
+    void Test_sortList1(){
     	ListNode node = new Solution.ListNode(3);
     	ListNode head = node;
     	for(int i : new int[]{4,1}){
@@ -365,14 +366,7 @@ public class Solution {
     	}
     	return ret;
     }
-    
-    //TODO: merge sort
-    public ListNode sortList(ListNode head){
-    	ListNode ret = head;
-    	
-    	return ret;
-    }
-            
+               
     public int removeDuplicates1(int[] A) {
         int offset = 0;
         
@@ -429,6 +423,108 @@ public class Solution {
         
         return A.length - offset;
     }
+    
+    public void Test_sortList(){
+    	ListNode node = new Solution.ListNode(3);
+    	ListNode head = node;
+    	for(int i : new int[]{2,1}){
+    		ListNode next = new ListNode(i);
+    		node.next = next;
+    		node = next;
+    	}
+    	node = sortList(head);    	
+    	while(node != null){
+    		System.out.printf("%d ", node.val);
+    		node = node.next;
+    	}
+    	System.out.println();
+    	node = new Solution.ListNode(4);
+    	head = node;
+    	for(int i : new int[]{2,3,1}){
+    		ListNode next = new ListNode(i);
+    		node.next = next;
+    		node = next;
+    	}
+    	node = sortList(head);    	
+    	while(node != null){
+    		System.out.printf("%d ", node.val);
+    		node = node.next;
+    	}
+    	System.out.println();
+    }
+    
+    ListNode mergeSortedList(ListNode list1, ListNode list2){
+    	ListNode ret = null, previous = null;
+    	
+    	if (list1 == null) ret = list2;
+    	else if (list2 == null) ret = list1;
+    	else if (list1.val < list2.val){
+    		ret = list1;
+    		previous = ret;
+    		list1 = list1.next;
+    	}
+    	else{
+    		ret = list2;
+    		previous = ret;
+    		list2 = list2.next;
+    	}
+    	
+    	while(list1 != null && list2 != null){
+    		if (list1.val < list2.val){
+    			previous.next = list1;
+    			
+    			previous = list1;
+    			list1 = list1.next;
+    		}
+    		else{
+    			previous.next = list2;
+    			
+    			previous = list2;
+    			list2 = list2.next;
+    		}
+    	}
+    	
+    	if (list1 != null) previous.next = list1;
+    	else if (list2 != null) previous.next = list2;
+    	
+    	return ret;
+    }
+    
+    //TODO: merge sort
+    public ListNode sortList(ListNode head){
+    	if (head == null || head.next == null) return head;
+    	
+    	ListNode ret = head;
+    	int length = 0;
+    	//find length
+    	while(ret != null){
+    		length ++;
+    		ret = ret.next;
+    	}
+    	//System.out.printf("length %d \r\n", length);
+    	//find middle node
+    	ListNode middle = head, previous = null;
+    	for(int i=0;i<length/2;i++){
+    		previous = middle;
+    		middle = middle.next;
+    	}
+    	//System.out.printf("middle %d \r\n", middle.val);
+    	//break list
+    	if (previous != null){ 
+    		previous.next = null;
+    		//System.out.printf("previous %d \r\n", previous.val);
+    	}
+    	
+    	ListNode list1 = sortList(head);
+    	ListNode list2 = sortList(middle);
+    	
+    	//merge sorted lists    	
+    	return mergeSortedList(list1, list2);
+    }
+
+
+
+
 }
 
 
