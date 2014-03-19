@@ -17,6 +17,12 @@ public class Solution {
             next = null;
         }
     }
+    
+    public class TreeLinkNode {
+    	      int val;
+    	      TreeLinkNode left, right, next;
+    	      TreeLinkNode(int x) { val = x; }
+    }
 	 
 	public static void main(String[] args) {
 		//Test_longestValidParentheses();
@@ -602,8 +608,14 @@ public class Solution {
        
         return true;
     }
-
-
+    
+    public int searchInsert(int[] A, int target) {
+        for (int i=0;i<A.length;i++){
+        	if (target<=A[i]) return i;
+        }
+        
+        return A.length;
+    }
 }
 
 
