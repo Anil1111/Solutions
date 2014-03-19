@@ -708,6 +708,20 @@ public class Solution {
     	return ret;        
     }
 
+    public ListNode deleteDuplicates(ListNode head) {
+    	ListNode node, previous=head;
+    	while(previous != null){
+    		node = previous.next;
+    		if (node != null && node.val == previous.val){
+    			previous.next = node.next;
+    		}
+    		else{
+    			previous = previous.next;
+    		}
+    	}
+    	
+    	return head;        
+    }       
 }
 
 
