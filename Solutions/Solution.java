@@ -37,7 +37,7 @@ public class Solution {
 		//solution.Test_addBinary();
 		//solution.Test_fourSum();
 		//solution.Test_pow();
-		solution.Test_isValid();
+		//solution.Test_isValid();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -1113,6 +1113,9 @@ public class Solution {
     	if (!stack.isEmpty()) return false;
     	else return true;
     }
+
+    
+    
     
 }
 
