@@ -34,6 +34,7 @@ public class Solution {
 		//solution.Test_sortList();
 		//solution.Test_isValidSudoku();
 		//solution.Test_threeSum();
+		//solution.Test_addBinary();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -864,9 +865,55 @@ public class Solution {
         }
         
         return ret;
-    }    
+    }
     
-   
+    public void Test_addBinary(){
+    	System.out.printf("%s \r\n", addBinary("1", "1"));
+    }
+    
+    public String addBinary(String a, String b) {
+    	StringBuilder builder = new StringBuilder();
+    	
+    	int offset = 1, sum = 0, carry = 0;
+    	while(a.length() >= offset && b.length() >= offset){
+    		int va = a.charAt(a.length() - offset) - '0';
+    		int vb = b.charAt(b.length() - offset) - '0';
+    		
+    		sum = (va + vb + carry) % 2;
+    		carry = (va + vb + carry) / 2; 
+    		builder.insert(0,  sum);
+    		
+    		//System.out.printf("ab %d %d %d %s \r\n", offset, sum, carry, builder.toString());
+    		offset ++;
+    	}
+    	while(a.length() >= offset){
+    		int va = a.charAt(a.length() - offset) - '0';
+    		
+    		sum = (va + carry) % 2;
+    		carry = (va + carry) / 2; 
+    		builder.insert(0,  sum);
+    		
+    		//System.out.printf("a %d %s \r\n", offset, builder.toString());
+    		offset ++;
+    	}
+    	while(b.length() >= offset){
+    		int vb = b.charAt(b.length() - offset) - '0';
+    		
+    		sum = (vb + carry) % 2;
+    		carry = (vb + carry) / 2; 
+    		builder.insert(0,  sum);
+    		
+    		//System.out.printf("b %d %s \r\n", offset, builder.toString());
+    		offset ++;
+    	}
+    	if (carry > 0) builder.insert(0, carry);
+    	
+    	return builder.toString();
+    }
+    
+    
+    
+    
 }
 
 
