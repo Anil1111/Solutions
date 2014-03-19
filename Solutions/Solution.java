@@ -35,6 +35,8 @@ public class Solution {
 		//solution.Test_isValidSudoku();
 		//solution.Test_threeSum();
 		//solution.Test_addBinary();
+		//solution.Test_fourSum();
+		solution.Test_pow();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -910,10 +912,171 @@ public class Solution {
     	
     	return builder.toString();
     }
+       
+    /*
+    public void Test_fourSum(){
+    	int[] num = new int[]{0,0,0,0};
+    	ArrayList<ArrayList<Integer>> ret = fourSum(num,0);
+    	for(ArrayList<Integer> result : ret){
+    		for(Integer i : result){
+    			System.out.printf("%d ", i);
+    		}
+    		System.out.println();
+    	}
+    	num = new int[]{2,1,0,-1};
+    	ret = fourSum(num,2);
+    	for(ArrayList<Integer> result : ret){
+    		for(Integer i : result){
+    			System.out.printf("%d ", i);
+    		}
+    		System.out.println();
+    	}
+    	num = new int[]{-497,-473,-465,-462,-450,-445,-411,-398,-398,-392,-382,-376,-361,-359,-353,-347,-329,-328,-317,-307,-273,-230,-228,-227,-217,-199,-190,-175,-155,-151,-122,-102,-97,-96,-95,-87,-85,-84,-73,-71,-51,-50,-39,-24,-19,-1,-1,7,22,25,27,37,40,43,45,51,72,91,97,108,119,121,122,123,127,156,166,171,175,180,203,211,217,218,224,231,245,293,297,299,300,318,326,336,353,358,376,391,405,423,445,451,459,464,471,486,487,488};
+    	ret = fourSum(num,2251);
+    	System.out.println("2251");
+    	for(ArrayList<Integer> result : ret){
+    		for(Integer i : result){
+    			System.out.printf("%d ", i);
+    		}
+    		System.out.println();
+    	}
+    	num = new int[]{1, 0, -1, 0, -2, 2};
+    	ret = fourSum(num,0);
+    	System.out.println("0");
+    	for(ArrayList<Integer> result : ret){
+    		for(Integer i : result){
+    			System.out.printf("%d ", i);
+    		}
+    		System.out.println();
+    	}
+    	System.out.println("END");
+    }    
     
+    public ArrayList<ArrayList<Integer>> threeSum(int[] num, int goal, HashMap<Integer, Integer> map) {    	
+    	ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();   	
+    	if (num == null || num.length == 0) return ret;
+    	       
+        HashMap<Integer, HashSet<Integer>> firstmap = new HashMap<Integer, HashSet<Integer>>();
+        for(int i=0;i<num.length;i++){
+        	if (firstmap.containsKey(num[i])) continue;
+        	int first = num[i];
+        	//System.out.printf("first %d \r\n", first);
+        	firstmap.put(first, new HashSet<Integer>());
+        	
+    		for (int j=0;j<num.length;j++){
+    			if (num[j] == first){
+    				int count = map.get(num[j]);
+    				if (count < 2) continue;//we already used this one as first
+    			}
+    			
+    			//System.out.printf("first %d second %d\r\n", first, num[i]);
+    			
+    			int target = goal - num[j] - first;
+    			if (map.containsKey(target)){
+    				int count = map.get(target);
+    				if (first == target) count --;
+    				if (num[j] == target) count--;
+    				if (count < 1) continue;
+    				
+    				//we found an answer
+    				int[] results = new int[3];
+    				results[0] = first;
+    				results[1] = num[j];
+    				results[2] = target;
+    				//Arrays.sort(results);
+    				
+    				if (firstmap.containsKey(results[0])){
+    					HashSet<Integer> set = firstmap.get(results[0]);
+    					if (!set.contains(results[1])){
+    						ArrayList<Integer> list = new ArrayList<Integer>();
+    						for(int result : results) list.add(result);
+    						ret.add(list);
+    						
+    						set.add(results[1]);
+    					}
+    				}
+    			}
+    		}
+        }
+        
+        return ret;
+    }
     
+    public ArrayList<ArrayList<Integer>> fourSum(int[] num, int target) {
+    	ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
+    	if (num.length < 4) return ret;
+        HashSet<String> resultAsString = new HashSet<String>();
+        HashSet<Integer> firstset = new HashSet<Integer>();
+        HashMap<Integer, ArrayList<ArrayList<Integer>>> threesummap = new HashMap<Integer, ArrayList<ArrayList<Integer>>>(); 
+
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for(int i=0;i<num.length;i++){
+        	if (map.containsKey(num[i])) map.put(num[i], map.get(num[i]) + 1);
+        	else map.put(num[i], 1);
+        }
+
+        for(int i=0;i<num.length;i++){
+        	int first = num[i];        	
+        	if (firstset.contains(first)) continue;        	
+        	firstset.add(first);
+        	
+        	//3 sum issue        	        	
+        	ArrayList<ArrayList<Integer>> results;
+        	if (!threesummap.containsKey(target - first)){
+        		results = threeSum(num, target - first, map);
+        	}
+        	else{
+        		results = threesummap.get(target - first);
+        	}
+        	for(int j=0;j<results.size();j++){
+        		//ASSERT: 3 numbers in result
+        		ArrayList<Integer> result = results.get(j);
+        		//TODO: remove bad results 
+        		
+        		result.add(first);
+        		
+        		Collections.sort(result);
+
+        		String str = String.format("%d %d %d %d", result.get(0), result.get(1), result.get(2), result.get(3));
+        		if (!resultAsString.contains(str)){
+        			resultAsString.add(str);
+        			ret.add(result);
+        		}
+        	}
+        }
+        
+        return ret;
+    }
+    */
     
-    
+    public void Test_pow(){
+    	System.out.printf("%f \r\n", pow(0.00001, 2147483647));
+    	System.out.printf("%f \r\n", pow(8.88023, 3));
+    	System.out.printf("%f \r\n", pow(-1.00000, -2147483648));
+    }
+
+    public double pow(double x, int n) {
+        double ret = 1, val;
+        int i;
+        if (n < 0) {
+        	i = -n;
+        	val = 1/x;
+        }
+        else {
+        	i = n;
+        	val = x;
+        }
+        while(i > 0){
+        	//System.out.printf("%d %d %f %d\r\n", i, n, val, i % 2);
+        	
+        	if ((i % 2) == 1){
+        		ret *= val;
+        	}
+        	val = val * val;
+        	i = i / 2;
+        }  
+        return ret;
+    }
 }
 
 
