@@ -779,6 +779,23 @@ public class Solution {
     		indexb--;
         }
     }
+    
+    public String longestCommonPrefix(String[] strs) {
+        if (strs == null || strs.length < 1) return "";        	
+    	int length = 0;
+        
+        while(strs[0].length() > length){
+        	char ch = strs[0].charAt(length);
+	        for(int i=1;i<strs.length;i++){
+	        	if (length >= strs[i].length() || strs[i].charAt(length) != ch)
+	        	{
+	        		return strs[0].substring(0, length);
+	        	}	        	
+	        }
+	        length ++;
+        }
+        return strs[0].substring(0, length);
+    }    
 }
 
 
