@@ -38,7 +38,7 @@ public class Solution {
 		//solution.Test_fourSum();
 		//solution.Test_pow();
 		//solution.Test_isValid();
-		solution.Test_solveSudoku();
+		//solution.Test_solveSudoku();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -1133,7 +1133,7 @@ public class Solution {
     public void Test_solveSudoku(){
     	String[] lines;
     	char[][] board = new char[9][9];
-    	/*
+    	
     	lines = new String[]{".........",
 				  "4........",
 				  "......6..",
@@ -1180,7 +1180,7 @@ public class Solution {
 		solveSudoku(board);
 		printSudoku(board);
 		System.out.println("END");
-		*/    	
+		    	
     	lines = new String[]{".....7..9",
     			             ".4..812..",
     						 "...9...1.",
