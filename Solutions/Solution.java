@@ -38,6 +38,7 @@ public class Solution {
 		//solution.Test_fourSum();
 		//solution.Test_pow();
 		//solution.Test_isValid();
+		solution.Test_solveSudoku();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -585,31 +586,17 @@ public class Solution {
         			}
         			else horizontal[i][ch-'1'] = true;
         		}
-        		ch = board[j][i];
         		if (ch != '.'){
-        			if (vertical[i][ch-'1']){
+        			if (vertical[j][ch-'1']){
         				//System.out.printf("V %d %d\r\n", j, ch-'1');
         				return false;
         			}
-        			else vertical[i][ch-'1'] = true;
+        			else vertical[j][ch-'1'] = true;
         		}
-        		
-        		if (i%3==0&&j%3==0){
-	        		for(int k=0;k<3;k++){
-	        			for(int l=0;l<3;l++){
-	        				ch = board[i+k][j+l];
-                			//System.out.printf("%d %d %c\r\n", i+k, j+l, ch);
-	                		if (ch != '.'){
-		        				//System.out.printf("S %d %d %d %d\r\n", i/3+j, i+k, j+l, ch-'1');
-	                			if (squares[i/3+j][ch-'1']){ 
-	                				//System.out.printf("S %d %d\r\n", i/3+j, ch-'1');
-	                				return false;	                			
-	                			}
-	                			else squares[i/3+j][ch-'1'] = true;
-	                		}
-	        			}
-	        		}
-        		}
+       	        if (ch != '.'){
+       	        	if (squares[j/3+3*(i/3)][ch-'1']) return false;
+       	        	else squares[j/3+3*(i/3)][ch-'1'] = true;
+       	        }
         	}
         }       
        
@@ -1141,9 +1128,143 @@ public class Solution {
     	}
     	
     	return head;        
-    }    
+    }
+    
+    public void Test_solveSudoku(){
+    	String[] lines;
+    	char[][] board = new char[9][9];
+    	/*
+    	lines = new String[]{".........",
+				  "4........",
+				  "......6..",
+				  "...38....",
+				  ".5...6..1",
+				  "8......6.",
+				  ".........",
+				  "..7.9....",
+				  "...6....."};
+	
+		for(int i=0;i<9;i++){
+			for(int j=0;j<9;j++){
+				board[i][j] = lines[i].charAt(j);
+			}
+		}
+		solveSudoku(board);
+		printSudoku(board);
+		System.out.println("END");
+
+		lines = new String[]{"..4...63.",
+				 ".........",
+				 "5......9.",
+				 "...56....",
+				 "4.3.....1",
+				 "...7.....",
+				 "...5.....",
+				 ".........",
+				 "........."};
+		for(int i=0;i<9;i++){
+			for(int j=0;j<9;j++){
+				board[i][j] = lines[i].charAt(j);
+			}
+		}
+		solveSudoku(board);
+		printSudoku(board);
+		System.out.println("END");
+		
+		lines = new String[]{"..9748...","7........",".2.1.9...","..7...24.",".64.1.59.",".98...3..","...8.3.2.","........6","...2759.."};
+		for(int i=0;i<9;i++){
+			for(int j=0;j<9;j++){
+				board[i][j] = lines[i].charAt(j);
+			}
+		}
+		solveSudoku(board);
+		printSudoku(board);
+		System.out.println("END");
+		*/    	
+    	lines = new String[]{".....7..9",
+    			             ".4..812..",
+    						 "...9...1.",
+    						 "..53...72",
+    						 "293....5.",
+    						 ".....53..",
+    						 "8...23...",
+    						 "7...5..4.",
+    						 "531.7...."};
+		for(int i=0;i<9;i++){
+			for(int j=0;j<9;j++){
+				board[i][j] = lines[i].charAt(j);
+			}
+		}
+		solveSudoku(board);
+		printSudoku(board);
+		System.out.println("END");
+    }
+    
+    private void printSudoku(char[][] board){
+		for(int i=0;i<9;i++){
+			for(int j=0;j<9;j++){
+				System.out.printf("%c ", board[i][j]);
+			}
+			System.out.println();
+		}    	
+    }
+    
+    public void solveSudoku(char[][] board) {
+    	boolean[][] horizontal = new boolean[9][9];
+    	boolean[][] vertical = new boolean[9][9];
+    	boolean[][] squares = new boolean[9][9];
+        for (int i=0;i<9;i++){
+        	for (int j=0;j<9;j++){        		
+        		char ch = board[i][j];
+        		if (ch != '.'){
+        			horizontal[i][ch-'1'] = true;
+        		}
+        		if (ch != '.'){
+        			vertical[j][ch-'1'] = true;
+        		}
+       	        if (ch != '.'){
+       	        	squares[j/3+3*(i/3)][ch-'1'] = true;
+       	        }
+        	}
+        }       
+        
+    	trySolveSudoku(board, horizontal, vertical, squares);
+    }
+    
+    public boolean trySolveSudoku(char[][] board, boolean[][] horizontal, boolean[][] vertical, boolean[][] squares) {
+        for(int i=0;i<9;i++){
+        	for(int j=0;j<9;j++){
+        		if (board[i][j]=='.'){
+        			for(char ch='1';ch<='9';ch++){
+        				if (!horizontal[i][ch-'1'] && !vertical[j][ch-'1'] && !squares[j/3+3*(i/3)][ch-'1']){       					
+	        				board[i][j] = ch;
+	        				horizontal[i][ch-'1'] = true;
+	        				vertical[j][ch-'1'] = true;
+	        				squares[j/3+3*(i/3)][ch-'1'] = true;
+	        				
+	        				//System.out.printf("%d %d %c\r\n", i, j, ch);
+	        				//printSudoku(board);
+        					if (trySolveSudoku(board, horizontal, vertical, squares)) return true;
+        					
+	        				horizontal[i][ch-'1'] = false;
+	        				vertical[j][ch-'1'] = false;
+	        				squares[j/3+3*(i/3)][ch-'1'] = false;
+        				}
+        			}    
+        			//System.out.printf("%d %d\r\n", i, j);
+        			board[i][j] = '.';
+    				return false;
+        		}
+        	}
+        }
+        
+        return true;
+    }
     
     
+    
+    
+        
 }
 
 
