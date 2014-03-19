@@ -616,6 +616,40 @@ public class Solution {
         
         return A.length;
     }
+    
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    	int sum = (l1.val + l2.val) % 10, carry = (l1.val + l2.val) / 10;
+    	ListNode ret = new ListNode(sum), node = ret;
+    	while(l1 != null || l2 != null){
+    		sum = carry;
+    		if (l1 != null){
+    			l1 = l1.next;
+    			if (l1 != null) sum += l1.val;
+    		}
+    		if (l2 != null){
+    			l2 = l2.next;
+    			if (l2 != null) sum += l2.val;
+    		}
+    		
+    		if (l1 != null || l2 != null){
+	    		carry = sum / 10;
+	    		sum = sum % 10;
+	    		ListNode newnode = new ListNode(sum);
+	    		node.next = newnode;
+	    		node = newnode;
+    		}
+    	}
+    	
+    	if (carry > 0){
+    		ListNode newnode = new ListNode(carry);
+    		node.next = newnode;
+    		node = newnode;
+    	}
+    	node.next = null;
+    	
+    	return ret;
+    }
+
 }
 
 
