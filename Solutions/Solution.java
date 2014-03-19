@@ -1242,8 +1242,6 @@ public class Solution {
 	        				vertical[j][ch-'1'] = true;
 	        				squares[j/3+3*(i/3)][ch-'1'] = true;
 	        				
-	        				//System.out.printf("%d %d %c\r\n", i, j, ch);
-	        				//printSudoku(board);
         					if (trySolveSudoku(board, horizontal, vertical, squares)) return true;
         					
 	        				horizontal[i][ch-'1'] = false;
@@ -1251,8 +1249,6 @@ public class Solution {
 	        				squares[j/3+3*(i/3)][ch-'1'] = false;
         				}
         			}    
-        			//System.out.printf("%d %d\r\n", i, j);
-        			board[i][j] = '.';
     				return false;
         		}
         	}
