@@ -713,7 +713,7 @@ public class Solution {
     	return ret;        
     }
 
-    public ListNode deleteDuplicates(ListNode head) {
+    public ListNode deleteDuplicates1(ListNode head) {
     	ListNode node, previous=head;
     	while(previous != null){
     		node = previous.next;
@@ -1114,7 +1114,34 @@ public class Solution {
     	else return true;
     }
 
-    
+    public ListNode deleteDuplicates(ListNode head) {
+    	ListNode node, previous=head;
+    	HashSet<Integer> hasDup = new HashSet<Integer>();
+    	while(previous != null){
+    		node = previous.next;
+    		if (node != null && node.val == previous.val){
+    			previous.next = node.next;
+    			hasDup.add(previous.val);
+    		}
+    		else{
+    			previous = previous.next;
+    		}
+    	}
+
+    	while(head != null && hasDup.contains(head.val)){
+   			head = head.next;
+    	}
+    	previous = head;
+    	while(previous != null){
+    		node = previous.next;
+    		if (node != null && hasDup.contains(node.val)){
+    			previous.next = node.next;
+    		}
+    		else previous = previous.next;
+    	}
+    	
+    	return head;        
+    }    
     
     
 }
