@@ -33,6 +33,7 @@ public class Solution {
 		//solution.Test_removeDuplicates();
 		//solution.Test_sortList();
 		//solution.Test_isValidSudoku();
+		//solution.Test_threeSum();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -796,6 +797,76 @@ public class Solution {
         }
         return strs[0].substring(0, length);
     }    
+    
+    public void Test_threeSum(){
+    	int[] num = new int[]{-1, 0, 1};
+    	ArrayList<ArrayList<Integer>> ret = threeSum(num);
+    	for(ArrayList<Integer> result : ret){
+    		for(Integer i : result){
+    			System.out.printf("%d ", i);
+    		}
+    		System.out.println();
+    	}
+    }
+
+    public ArrayList<ArrayList<Integer>> threeSum(int[] num) {    	
+    	ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();   	
+    	if (num == null || num.length == 0) return ret;
+    	
+        Arrays.sort(num);
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for(int i=0;i<num.length;i++){
+        	if (map.containsKey(num[i])) map.put(num[i], map.get(num[i]) + 1);
+        	else map.put(num[i], 1);
+        }
+        
+        HashMap<Integer, HashSet<Integer>> firstmap = new HashMap<Integer, HashSet<Integer>>();
+        for(int i=0;i<num.length;i++){
+        	if (firstmap.containsKey(num[i])) continue;
+        	int first = num[i];
+        	//System.out.printf("first %d \r\n", first);
+        	firstmap.put(first, new HashSet<Integer>());
+        	
+    		for (int j=0;j<num.length;j++){
+    			if (num[j] == first){
+    				int count = map.get(num[j]);
+    				if (count < 2) continue;//we already used this one as first
+    			}
+    			
+    			//System.out.printf("first %d second %d\r\n", first, num[i]);
+    			
+    			int target = - num[j] - first;
+    			if (map.containsKey(target)){
+    				int count = map.get(target);
+    				if (first == target) count --;
+    				if (num[j] == target) count--;
+    				if (count < 1) continue;
+    				
+    				//we found an answer
+    				int[] results = new int[3];
+    				results[0] = first;
+    				results[1] = num[j];
+    				results[2] = target;
+    				Arrays.sort(results);
+    				
+    				if (firstmap.containsKey(results[0])){
+    					HashSet<Integer> set = firstmap.get(results[0]);
+    					if (!set.contains(results[1])){
+    						ArrayList<Integer> list = new ArrayList<Integer>();
+    						for(int result : results) list.add(result);
+    						ret.add(list);
+    						
+    						set.add(results[1]);
+    					}
+    				}
+    			}
+    		}
+        }
+        
+        return ret;
+    }    
+    
+   
 }
 
 
