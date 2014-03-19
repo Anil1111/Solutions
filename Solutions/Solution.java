@@ -723,9 +723,6 @@ public class Solution {
     	return head;        
     }       
 
-    /**
-     * time out exceed but insertion sort is slow!
-     */
     public ListNode insertionSortList(ListNode head){ 
     	ListNode ret = head;
     	ListNode next = null;
@@ -757,6 +754,30 @@ public class Solution {
     		}
     	}
     	return ret;
+    }
+    
+    public void merge(int A[], int m, int B[], int n) {
+        int indexa = m, indexb = n;
+        while(indexa > 0 && indexb > 0){
+        	if (A[indexa-1] < B[indexb-1]) {
+        		A[indexa+indexb-1] = B[indexb-1];
+        		indexb--;
+        	}
+        	else{
+        		A[indexa+indexb-1] = A[indexa-1];
+        		indexa--;
+        	}        	
+        }
+        
+        while(indexa>0){
+        	A[indexa+indexb-1] = A[indexa-1];
+    		indexa--;
+        }
+        
+        while(indexb>0){
+    		A[indexa+indexb-1] = B[indexb-1];
+    		indexb--;
+        }
     }
 }
 
