@@ -722,6 +722,42 @@ public class Solution {
     	
     	return head;        
     }       
+
+    /**
+     * time out exceed but insertion sort is slow!
+     */
+    public ListNode insertionSortList(ListNode head){ 
+    	ListNode ret = head;
+    	ListNode next = null;
+    	if (head != null){ 
+    		next = head.next;
+    		head.next = null;
+    	}
+    	while(next != null){
+    		ListNode node = ret, previous = null;
+    		while(node != null && node.val < next.val){
+    			previous = node;
+    			node = node.next;
+    		}
+    		if (previous != null) {
+    			ListNode temp = next.next;
+    			next.next = previous.next;
+    			previous.next = next;
+    			
+    			next = temp;
+    		}
+    		else{
+    			//insert as first
+    			ListNode temp = next.next;
+    			
+    			ret = next;
+    			next.next = node;
+    			
+    			next = temp;
+    		}
+    	}
+    	return ret;
+    }
 }
 
 
