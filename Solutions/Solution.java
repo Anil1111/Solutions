@@ -650,6 +650,22 @@ public class Solution {
     	return ret;
     }
 
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+	     int ret = -1, remaining = 0, min = Integer.MAX_VALUE;
+	     for (int i=0;i<gas.length;i++){
+	    	 remaining += gas[i] - cost[i];
+	    	 if (remaining < min){
+	    		 min = remaining;
+	    		 ret = i;
+	    	 }
+	     }
+	     
+	     if (remaining < 0) return -1;
+	     
+	     ret = (ret+1)%gas.length;	     
+	     
+	     return ret;
+    }
 }
 
 
