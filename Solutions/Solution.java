@@ -1456,7 +1456,39 @@ public class Solution {
     	
     	return tryTotalNQueens(0, board, cols, crls, crrs);       
     }    
+
+   private ArrayList<ArrayList<Integer>> tryPermute(ArrayList<Integer> list){
+        ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
+        if (list.size() == 1){
+            ArrayList<Integer> result = new ArrayList<Integer>();
+            result.add(list.get(0));
+            ret.add(result);
+            return ret;
+        }
+        for(int i=0;i<list.size();i++){
+            int n = list.get(i);
+            ArrayList<Integer> sublist = new ArrayList<Integer>();
+            for(Integer val : list) if (val != n) sublist.add(val);
+            
+            ArrayList<ArrayList<Integer>> results = tryPermute(sublist);
+            for(int j=0;j<results.size();j++){
+                ArrayList<Integer> result = results.get(j);
+                result.add(n);
+                ret.add(result);
+            }
+        }
+        return ret;
+    }
+    
+    public ArrayList<ArrayList<Integer>> permute(int[] num) {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for(int n : num) list.add(n);
+        ArrayList<ArrayList<Integer>> set = tryPermute(list);
         
+        HashSet<ArrayList<Integer>> ret = new HashSet<ArrayList<Integer>>(set);
+        
+        return new ArrayList<ArrayList<Integer>>(ret);
+    }        
 }
 
 
