@@ -25,10 +25,10 @@ public class Solution {
     }
 	 
 	public static void main(String[] args) {
-		//Test_longestValidParentheses();
-		//Test_wordBreak();
-		//Test_atoi();
 		Solution solution = new Solution();
+		//solution.Test_longestValidParentheses();
+		//solution.Test_wordBreak();
+		//solution.Test_atoi();
 		//solution.Test_sortList1();
 		//solution.Test_removeDuplicates();
 		//solution.Test_sortList();
@@ -126,7 +126,7 @@ public class Solution {
     	return new ArrayList<String>(ret);
     }
     
-    public static void Test_longestValidParentheses(){
+    public void Test_longestValidParentheses(){
 		Solution instance = new Solution();
 		String[] testcases = new String[] {"()())", "", ")(", "()", "(()", "())", "(", ")", "()()", "())()", "()(()","(((())))((()))", "))))((((",
 				"((()))())", "(()(((()", "(()(((("};
@@ -180,7 +180,7 @@ public class Solution {
     	return maxlen > leftmax ? maxlen : leftmax;
     }
     
-    public static void Test_wordBreak(){
+    public void Test_wordBreak(){
     	Solution instance = new Solution();
     	String input = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab";
     	HashSet<String> dict  = new HashSet<String>();
@@ -267,7 +267,7 @@ public class Solution {
     	return ret;
     }
     
-    public static void Test_atoi(){
+    public void Test_atoi(){
     	Solution instance = new Solution();
     	String str = "2147483648";
     	System.out.printf("%s %d\r\n", str, instance.atoi(str));
