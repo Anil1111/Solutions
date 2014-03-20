@@ -1357,6 +1357,72 @@ public class Solution {
       return A.length - offset;
     }
         
+    public int minDepth(TreeNode root) {
+        int ret = 0;
+        if (root != null){
+            if (root.left == null) return minDepth(root.right) + 1;
+            else if (root.right == null) return minDepth(root.left) + 1;
+            else{
+                int left = 0, right = 0;
+                left = minDepth(root.left);
+                right = minDepth(root.right);
+                if (left < right) return left + 1;
+                else return right + 1;
+            }
+        }
+        return ret;
+    }
+    
+    private ArrayList<String[]> trySolveNQueens(int i, int[] board, boolean[] cols, boolean[] crls, boolean[] crrs){
+        ArrayList<String[]> ret = new ArrayList<String[]>();
+        int n = board.length;
+    	
+		for (int j=0;j<n;j++){
+			if (!cols[j] && !crls[n+i-j-1] && !crrs[j+i]){
+    			cols[j] = true;
+    			crls[n+i-j-1] = true;
+    			crrs[j+i] = true;
+    			board[i] = j;
+    			
+    			if (i<n-1){
+    			    for(String[] result : trySolveNQueens(i+1, board, cols, crls, crrs)){
+	    			 ret.add(result);
+    			    }
+    			}
+    			else{
+    				String[] result = new String[n];
+    				for(int k=0;k<n;k++){
+    					StringBuilder builder = new StringBuilder();
+    					for(int l=0;l<n;l++){	    						
+    						if (board[k]==l) builder.append('Q');
+    						else builder.append('.');
+    					}
+    					result[k]=builder.toString();
+    				}
+    				ret.add(result);
+    			}
+
+    			cols[j] = false;
+    			crls[n+i-j-1] = false;
+    			crrs[j+i] = false;
+			}
+		
+    	}
+    	return ret;
+    }
+    
+    public ArrayList<String[]> solveNQueens(int n) {
+     	ArrayList<String[]> ret = new ArrayList<String[]>();
+    	boolean[] cols = new boolean[n];
+    	boolean[] crls = new boolean[2*n-1];
+    	boolean[] crrs = new boolean[2*n-1];
+    	int[] board = new int[n];
+    	
+    	return trySolveNQueens(0, board, cols, crls, crrs);       
+    }
+    
+    
+        
 }
 
 
