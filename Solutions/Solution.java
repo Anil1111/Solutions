@@ -1421,7 +1421,41 @@ public class Solution {
     	return trySolveNQueens(0, board, cols, crls, crrs);       
     }
     
+    private int tryTotalNQueens(int i, int[] board, boolean[] cols, boolean[] crls, boolean[] crrs){
+        int ret = 0;
+        int n = board.length;
+    	
+		for (int j=0;j<n;j++){
+			if (!cols[j] && !crls[n+i-j-1] && !crrs[j+i]){
+    			cols[j] = true;
+    			crls[n+i-j-1] = true;
+    			crrs[j+i] = true;
+    			board[i] = j;
+    			
+    			if (i<n-1){
+    			    ret += tryTotalNQueens(i+1, board, cols, crls, crrs);
+    			}
+    			else{
+    			    ret ++;
+    			}
+
+    			cols[j] = false;
+    			crls[n+i-j-1] = false;
+    			crrs[j+i] = false;
+			}
+		
+    	}
+    	return ret;
+    }
     
+    public int totalNQueens(int n) {
+    	boolean[] cols = new boolean[n];
+    	boolean[] crls = new boolean[2*n-1];
+    	boolean[] crrs = new boolean[2*n-1];
+    	int[] board = new int[n];
+    	
+    	return tryTotalNQueens(0, board, cols, crls, crrs);       
+    }    
         
 }
 
