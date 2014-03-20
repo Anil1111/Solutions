@@ -900,46 +900,8 @@ public class Solution {
     	
     	return builder.toString();
     }
-       
+          
     /*
-    public void Test_fourSum(){
-    	int[] num = new int[]{0,0,0,0};
-    	ArrayList<ArrayList<Integer>> ret = fourSum(num,0);
-    	for(ArrayList<Integer> result : ret){
-    		for(Integer i : result){
-    			System.out.printf("%d ", i);
-    		}
-    		System.out.println();
-    	}
-    	num = new int[]{2,1,0,-1};
-    	ret = fourSum(num,2);
-    	for(ArrayList<Integer> result : ret){
-    		for(Integer i : result){
-    			System.out.printf("%d ", i);
-    		}
-    		System.out.println();
-    	}
-    	num = new int[]{-497,-473,-465,-462,-450,-445,-411,-398,-398,-392,-382,-376,-361,-359,-353,-347,-329,-328,-317,-307,-273,-230,-228,-227,-217,-199,-190,-175,-155,-151,-122,-102,-97,-96,-95,-87,-85,-84,-73,-71,-51,-50,-39,-24,-19,-1,-1,7,22,25,27,37,40,43,45,51,72,91,97,108,119,121,122,123,127,156,166,171,175,180,203,211,217,218,224,231,245,293,297,299,300,318,326,336,353,358,376,391,405,423,445,451,459,464,471,486,487,488};
-    	ret = fourSum(num,2251);
-    	System.out.println("2251");
-    	for(ArrayList<Integer> result : ret){
-    		for(Integer i : result){
-    			System.out.printf("%d ", i);
-    		}
-    		System.out.println();
-    	}
-    	num = new int[]{1, 0, -1, 0, -2, 2};
-    	ret = fourSum(num,0);
-    	System.out.println("0");
-    	for(ArrayList<Integer> result : ret){
-    		for(Integer i : result){
-    			System.out.printf("%d ", i);
-    		}
-    		System.out.println();
-    	}
-    	System.out.println("END");
-    }    
-    
     public ArrayList<ArrayList<Integer>> threeSum(int[] num, int goal, HashMap<Integer, Integer> map) {    	
     	ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();   	
     	if (num == null || num.length == 0) return ret;
@@ -1257,9 +1219,136 @@ public class Solution {
         return true;
     }
     
+    public void Test_fourSum(){
+    	int[] num = new int[]{0,0,0,0};
+    	ArrayList<ArrayList<Integer>> ret = fourSum(num,0);
+    	for(ArrayList<Integer> result : ret){
+    		for(Integer i : result){
+    			System.out.printf("%d ", i);
+    		}
+    		System.out.println();
+    	}
+    	num = new int[]{2,1,0,-1};
+    	ret = fourSum(num,2);
+    	for(ArrayList<Integer> result : ret){
+    		for(Integer i : result){
+    			System.out.printf("%d ", i);
+    		}
+    		System.out.println();
+    	}
+    	num = new int[]{-497,-473,-465,-462,-450,-445,-411,-398,-398,-392,-382,-376,-361,-359,-353,-347,-329,-328,-317,-307,-273,-230,-228,-227,-217,-199,-190,-175,-155,-151,-122,-102,-97,-96,-95,-87,-85,-84,-73,-71,-51,-50,-39,-24,-19,-1,-1,7,22,25,27,37,40,43,45,51,72,91,97,108,119,121,122,123,127,156,166,171,175,180,203,211,217,218,224,231,245,293,297,299,300,318,326,336,353,358,376,391,405,423,445,451,459,464,471,486,487,488};
+    	ret = fourSum(num,2251);
+    	System.out.println("2251");
+    	for(ArrayList<Integer> result : ret){
+    		for(Integer i : result){
+    			System.out.printf("%d ", i);
+    		}
+    		System.out.println();
+    	}
+    	num = new int[]{1, 0, -1, 0, -2, 2};
+    	ret = fourSum(num,0);
+    	System.out.println("0");
+    	for(ArrayList<Integer> result : ret){
+    		for(Integer i : result){
+    			System.out.printf("%d ", i);
+    		}
+    		System.out.println();
+    	}
+    	num = new int[]{91277418,66271374,38763793,4092006,11415077,60468277,1122637,72398035,-62267800,22082642,60359529,-16540633,92671879,-64462734,-55855043,-40899846,88007957,-57387813,-49552230,-96789394,18318594,-3246760,-44346548,-21370279,42493875,25185969,83216261,-70078020,-53687927,-76072023,-65863359,-61708176,-29175835,85675811,-80575807,-92211746,44755622,-23368379,23619674,-749263,-40707953,-68966953,72694581,-52328726,-78618474,40958224,-2921736,-55902268,-74278762,63342010,29076029,58781716,56045007,-67966567,-79405127,-45778231,-47167435,1586413,-58822903,-51277270,87348634,-86955956,-47418266,74884315,-36952674,-29067969,-98812826,-44893101,-22516153,-34522513,34091871,-79583480,47562301,6154068,87601405,-48859327,-2183204,17736781,31189878,-23814871,-35880166,39204002,93248899,-42067196,-49473145,-75235452,-61923200,64824322,-88505198,20903451,-80926102,56089387,-58094433,37743524,-71480010,-14975982,19473982,47085913,-90793462,-33520678,70775566,-76347995,-16091435,94700640,17183454,85735982,90399615,-86251609,-68167910,-95327478,90586275,-99524469,16999817,27815883,-88279865,53092631,75125438,44270568,-23129316,-846252,-59608044,90938699,80923976,3534451,6218186,41256179,-9165388,-11897463,92423776,-38991231,-6082654,92275443,74040861,77457712,-80549965,-42515693,69918944,-95198414,15677446,-52451179,-50111167,-23732840,39520751,-90474508,-27860023,65164540,26582346,-20183515,99018741,-2826130,-28461563,-24759460,-83828963,-1739800,71207113,26434787,52931083,-33111208,38314304,-29429107,-5567826,-5149750,9582750,85289753,75490866,-93202942,-85974081,7365682,-42953023,21825824,68329208,-87994788,3460985,18744871,-49724457,-12982362,-47800372,39958829,-95981751,-71017359,-18397211,27941418,-34699076,74174334,96928957,44328607,49293516,-39034828,5945763,-47046163,10986423,63478877,30677010,-21202664,-86235407,3164123,8956697,-9003909,-18929014,-73824245};
+    	ret = fourSum(num,-236727523);
+    	System.out.println("-236727523");
+    	for(ArrayList<Integer> result : ret){
+    		for(Integer i : result){
+    			System.out.printf("%d ", i);
+    		}
+    		System.out.println();
+    	}
+    	System.out.println("END");
+    } 
     
+    public ArrayList<ArrayList<Integer>> fourSum2(int[] num, int target) {
+    	ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
+    	if (num.length < 4) return ret;
+        HashSet<ArrayList<Integer>> resultset = new HashSet<ArrayList<Integer>>();
+        Arrays.sort(num);
+        Hashtable<Integer, Integer> map = new Hashtable<Integer, Integer>();
+        for(int i : num){
+        	if (map.containsKey(i)) map.put(i, map.get(i) + 1);
+        	else map.put(i,  1);
+        }
+                
+        for(int i=0;i<num.length;i++){
+        	for(int j=i+1;j<num.length;j++){
+        		for(int k=j+1;k<num.length;k++){
+        			int last = target - num[i] - num[j] - num[k];
+        			if (map.containsKey(last)){
+        				int count = map.get(last);
+        				if (num[i] == last) count --;
+        				if (num[j] == last) count --;
+        				if (num[k] == last) count --;
+        				if (count > 0){
+        					ArrayList<Integer> result = new ArrayList<Integer>();
+        					result.add(num[i]);
+        					result.add(num[j]);
+        					result.add(num[k]);
+        					if (last<num[i]) result.add(0, last);
+        					else if (last<num[j]) result.add(1, last);
+        					else if (last<num[k]) result.add(2, last);
+        					else result.add(last);
+        					if (!resultset.contains(result)) {
+        						ret.add(result);
+        						resultset.add(result);
+        					}
+        				}
+        			}
+        		}
+        	}
+        }
+        
+        return ret;
+    }
     
-    
+    public ArrayList<ArrayList<Integer>> fourSum(int[] num, int target) {
+     	Arrays.sort(num);
+     
+    	HashSet<ArrayList<Integer>> hashSet = new HashSet<ArrayList<Integer>>();
+    	ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+     
+    	for (int i = 0; i < num.length; i++) {
+    		for (int j = i + 1; j < num.length; j++) {
+    			int k = j + 1;
+    			int l = num.length - 1;
+     
+    			while (k < l) {
+    				int sum = num[i] + num[j] + num[k] + num[l];
+     
+    				if (sum > target) {
+    					l--;
+    				} else if (sum < target) {
+    					k++;
+    				} else if (sum == target) {
+    					ArrayList<Integer> temp = new ArrayList<Integer>();
+    					temp.add(num[i]);
+    					temp.add(num[j]);
+    					temp.add(num[k]);
+    					temp.add(num[l]);
+     
+    					if (!hashSet.contains(temp)) {
+    						hashSet.add(temp);
+    						result.add(temp);
+    					}
+     
+    					k++;
+    					l--;
+    				}
+    			}
+    		}
+    	}
+     
+    	return result;
+        }
+        
+        
         
 }
 
