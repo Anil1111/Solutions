@@ -1765,7 +1765,22 @@ public class Solution {
         return head;
     }
     
-    
+    public int lengthOfLastWord(String s) {
+    	if (s.length() < 1) return 0;
+    	
+        int ret=s.length()-1;
+        for(;ret>=0;ret--){
+        	if (s.charAt(ret) != ' ') break;
+        }
+        int trailing = ret+1;
+        
+        for(;ret>=0;ret--){
+        	if (s.charAt(ret) == ' ') break;
+        }
+        
+        if (ret < 0) return trailing;
+        else return trailing - ret -1;
+    }
     
     
 }
