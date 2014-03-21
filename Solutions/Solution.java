@@ -39,6 +39,8 @@ public class Solution {
 		//solution.Test_pow();
 		//solution.Test_isValid();
 		//solution.Test_solveSudoku();
+		//solution.Test_divide();
+		//solution.Test_isSymmetric();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -1489,6 +1491,111 @@ public class Solution {
         
         return new ArrayList<ArrayList<Integer>>(ret);
     }        
+    
+    /*
+    public void Test_divide(){
+    	System.out.printf("%d \r\n", divide(8, 3));
+    	System.out.printf("%d \r\n", divide(600000000, 3));
+    	System.out.printf("%d \r\n", divide(2147483647,2));
+    	System.out.printf("%d \r\n", divide(-2147483648,1));
+    }
+        
+    public int divide(int dividend, int divisor) {
+        if (divisor == 0) return -1;
+        boolean neg1 = false, neg2 = false;
+        if (dividend < 0){ 
+            neg1 = true;
+            dividend = -dividend;
+        }
+        if (divisor < 0){
+            neg2 = true;
+            divisor = -divisor;
+        }
+        
+        int pow = 1, val = divisor, temp = dividend; 
+        while(divisor < temp){
+        	pow = pow << 1;
+        	temp = temp >> 1;
+        	val = val << 1;
+        	System.out.printf("%d %d\r\n", val, temp);
+        }
+        
+        while(val > dividend){
+        	val = val >> 1;
+        	pow = pow >> 1;
+        }
+        
+        int remain = dividend - val;
+        int count = pow;
+        while(remain > divisor){
+        	if (val < remain){
+	            remain -= val;
+	            count += pow;
+        	}
+        	pow = pow >> 1;
+			val = val >> 1;
+        }
+        if (remain == divisor) count ++;
+
+        if ((!neg1 && neg2) || (neg1 && !neg2)) count *= -1;
+        
+        return count;
+    }
+    */
+    
+    public void Test_isSymmetric(){
+    	TreeNode root = new TreeNode(9);
+    	TreeNode node = new TreeNode(-42);
+    	root.left = node;
+    	TreeNode node1 = new TreeNode(76);
+    	node.right = node1;
+    	node = node.right;
+    	node1 = new TreeNode(13);
+    	node.right = node1;
+    	node = new TreeNode(-42);
+    	root.right = node;
+    	node1 = new TreeNode(76);
+    	node.left = node1;
+    	node = node.left;
+    	node1 = new TreeNode(13);
+    	node.right = node1;
+    	
+    	System.out.printf("%b \r\n", isSymmetric(root));
+    }
+    
+    private boolean symmetricNodes(TreeNode left, TreeNode right)
+    {
+    	if (left.val != right.val) return false;
+    	
+    	boolean ret = true;
+    	
+    	if (left.left == null && right.right == null) ret = true;
+    	else if (left.left == null && right.right != null) return false;
+    	else if (left.left != null && right.right == null) return false;  	
+    	else ret = symmetricNodes(left.left, right.right);
+    	
+    	if (ret){
+	    	if (left.right == null && right.left == null) ret = true;
+	    	else if (left.right == null && right.left != null) return false;
+	    	else if (left.right != null && right.left == null) return false;
+	    	else ret = symmetricNodes(left.right, right.left);;
+    	}
+    	
+    	return ret;
+    }
+    
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null) return true;
+        if (root.left == null && root.right == null) return true;
+        if (root.left != null && root.right == null) return false;
+        if (root.left == null && root.right != null) return false;
+        
+        return symmetricNodes(root.left, root.right);
+    }
+
+    
+    
+    
 }
 
 
