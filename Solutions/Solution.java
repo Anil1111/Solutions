@@ -1605,6 +1605,44 @@ public class Solution {
         return max;
     }
     
+    private ArrayList<ArrayList<Integer>> tryPermuteUnique(ArrayList<Integer> list){
+        ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
+        if (list.size() == 1){
+            ArrayList<Integer> result = new ArrayList<Integer>();
+            result.add(list.get(0));
+            ret.add(result);
+            return ret;
+        }
+        HashSet<Integer> used = new HashSet<Integer>();
+        for(int i=0;i<list.size();i++){
+        	if (used.contains(list.get(i))) continue;
+            int n = list.get(i);
+            used.add(n);
+            ArrayList<Integer> sublist = new ArrayList<Integer>();
+            for(int j=0;j<list.size();j++) if (j != i) sublist.add(list.get(j));
+            
+            ArrayList<ArrayList<Integer>> results = tryPermute(sublist);
+            for(int j=0;j<results.size();j++){
+                ArrayList<Integer> result = results.get(j);
+                result.add(n);
+                ret.add(result);
+            }
+        }
+        return ret;
+    }
+    
+    public ArrayList<ArrayList<Integer>> tryPermuteUnique(int[] num) {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for(int n : num) list.add(n);
+        ArrayList<ArrayList<Integer>> set = tryPermuteUnique(list);
+        
+        HashSet<ArrayList<Integer>> ret = new HashSet<ArrayList<Integer>>(set);
+        
+        return new ArrayList<ArrayList<Integer>>(ret);
+    }        
+
+    
+    
     
 }
 
