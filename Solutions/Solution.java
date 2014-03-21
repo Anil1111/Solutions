@@ -42,7 +42,7 @@ public class Solution {
 		//solution.Test_divide();
 		//solution.Test_isSymmetric();
 		//solution.Test_combine();
-		solution.test_removeNthFromEnd();
+		//solution.test_removeNthFromEnd();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -1781,6 +1781,26 @@ public class Solution {
         if (ret < 0) return trailing;
         else return trailing - ret -1;
     }
+    
+    public int threeSumClosest(int[] num, int target) {
+    	int ret = num[0]+num[1]+num[2];
+    	
+    	Arrays.sort(num);
+    	for (int i=0;i<num.length;i++){
+    		int k=i+1, l = num.length - 1;
+    		while(k < l){
+    			int sum = num[i] + num[k] + num[l];
+    			if (Math.abs(ret - target) > Math.abs(sum - target)) ret = sum;
+    			
+    			if (sum < target) k++;
+    			else if (sum == target) return sum;
+    			else l--;
+    		}
+    	}
+    	
+    	return ret;
+    }
+    
     
     
 }
