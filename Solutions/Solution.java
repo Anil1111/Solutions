@@ -1593,7 +1593,17 @@ public class Solution {
         return symmetricNodes(root.left, root.right);
     }
 
-    
+    public int maxSubArray(int[] A) {
+        int max = Integer.MIN_VALUE, val = 0;
+        for(int i : A){        	
+        	if (i > max) max = i;
+        	val += i;
+        	if (val > max) max = val;
+        	if (val < 0) val = 0;
+        }
+        
+        return max;
+    }
     
     
 }
