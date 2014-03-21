@@ -1641,6 +1641,24 @@ public class Solution {
         return new ArrayList<ArrayList<Integer>>(ret);
     }        
 
+    public int[] plusOne(int[] digits) {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        
+        if (digits.length > 0){
+	        int sum = 0, carry = 1;
+	        for(int i=digits.length-1;i>=0;i--){
+	        	sum = digits[i] + carry;
+	        	carry = sum / 10;
+	        	sum = sum % 10;
+	        	list.add(sum);
+	        }
+	        if (carry>0) list.add(carry);
+        }
+        int[] ret = new int[list.size()];
+        for(int i=0;i<ret.length;i++) ret[i] = list.get(ret.length-1-i);
+        return ret;
+    }
+
     
     
     
