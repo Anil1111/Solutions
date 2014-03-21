@@ -42,6 +42,7 @@ public class Solution {
 		//solution.Test_divide();
 		//solution.Test_isSymmetric();
 		//solution.Test_combine();
+		solution.test_removeNthFromEnd();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -1709,8 +1710,66 @@ public class Solution {
     	 boolean[] usage = new boolean[n];
     	 return tryCombine(n,k,usage, 0);
     }
+
+    public void test_removeNthFromEnd(){
+    	ListNode root = new ListNode(1);
+    	root = removeNthFromEnd(root, 1);
+    	System.out.printf("List ");
+    	while(root != null){
+    		System.out.printf("%d ", root.val);
+    		root = root.next;
+    	}
+    	
+    	System.out.println();
+    	root = new ListNode(1);
+    	ListNode node = new ListNode(2);
+    	root.next = node;
+    	root = removeNthFromEnd(root, 1);
+    	System.out.printf("List ");
+    	while(root != null){
+    		System.out.printf("%d ", root.val);
+    		root = root.next;
+    	}
+    	System.out.println();
+    	
+    	root = new ListNode(1);
+    	node = new ListNode(2);
+    	root.next = node;
+    	root = removeNthFromEnd(root, 2);
+    	System.out.printf("List ");
+    	while(root != null){
+    		System.out.printf("%d ", root.val);
+    		root = root.next;
+    	}
+    	System.out.println();
+    }
+
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode first = head;
+        ListNode second = head;
+        ListNode previous = head;
+        for(int i=1;i<n;i++){
+        	first = first.next;
+        }
+        while(first.next != null){
+        	first = first.next;
+        	previous = second;
+        	second = second.next;
+        	//System.out.printf("first %d second %d previous %d\r\n", first.val, second.val, previous.val);
+        }        
+        if (second == head){ 
+        	head = head.next;        
+        }
+        else if (second != null) previous.next = second.next;
+        
+        return head;
+    }
+    
+    
     
     
 }
+
+
 
 
