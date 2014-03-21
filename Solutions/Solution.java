@@ -41,6 +41,7 @@ public class Solution {
 		//solution.Test_solveSudoku();
 		//solution.Test_divide();
 		//solution.Test_isSymmetric();
+		//solution.Test_combine();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -1658,8 +1659,56 @@ public class Solution {
         for(int i=0;i<ret.length;i++) ret[i] = list.get(ret.length-1-i);
         return ret;
     }
-
     
+    public void Test_combine(){
+    	ArrayList<ArrayList<Integer>> results = combine(7,7);
+    	for(ArrayList<Integer> result : results){
+    		for(Integer val : result) System.out.printf("%d ", val);
+    		System.out.println();    		
+    	}
+    	results = combine(10,7);
+    	for(ArrayList<Integer> result : results){
+    		for(Integer val : result) System.out.printf("%d ", val);
+    		System.out.println();    		
+    	}
+    	results = combine(10,5);
+    	for(ArrayList<Integer> result : results){
+    		for(Integer val : result) System.out.printf("%d ", val);
+    		System.out.println();    		
+    	}
+    }
+    
+    private ArrayList<ArrayList<Integer>> tryCombine(int n, int k, boolean[] usage, int min) {
+    	ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
+    	
+    	for(int i=0;i<=n-k;i++){
+    		if (usage[i]) continue;
+    		if (min > i) continue;
+    		usage[i] = true;
+    		min = i;
+    		if (k > 1){
+    			ArrayList<ArrayList<Integer>> results = tryCombine(n, k-1, usage, min);
+    			for(int j=0;j<results.size();j++){
+    				ArrayList<Integer> result = results.get(j);
+    				result.add(0, i+1);
+    				ret.add(result);
+    			}
+    		}
+    		else{
+    			ArrayList<Integer> result = new ArrayList<Integer>();
+    			result.add(i+1);
+    			ret.add(result);
+    		}
+    		usage[i] = false;
+    	}
+
+    	return ret;
+    }
+    
+    public ArrayList<ArrayList<Integer>> combine(int n, int k) {
+    	 boolean[] usage = new boolean[n];
+    	 return tryCombine(n,k,usage, 0);
+    }
     
     
 }
