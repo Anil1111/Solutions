@@ -1801,6 +1801,58 @@ public class Solution {
     	return ret;
     }
     
+    ListNode merge2List(ListNode list1, ListNode list2){
+    	ListNode ret = null, previous = null;
+    	
+    	if (list1 == null) ret = list2;
+    	else if (list2 == null) ret = list1;
+    	else if (list1.val < list2.val){
+    		ret = list1;
+    		previous = ret;
+    		list1 = list1.next;
+    	}
+    	else{
+    		ret = list2;
+    		previous = ret;
+    		list2 = list2.next;
+    	}
+    	
+    	while(list1 != null && list2 != null){
+    		if (list1.val < list2.val){
+    			previous.next = list1;
+    			
+    			previous = list1;
+    			list1 = list1.next;
+    		}
+    		else{
+    			previous.next = list2;
+    			
+    			previous = list2;
+    			list2 = list2.next;
+    		}
+    	}
+    	    	
+    	if (previous != null){
+        	if (list1 != null) previous.next = list1;
+        	else if (list2 != null) previous.next = list2;
+    	}    	
+    	
+    	return ret;
+    }
+        
+    public ListNode mergeKLists(ArrayList<ListNode> lists) {
+    	if (lists.size() == 0) return null;
+    	else if (lists.size() == 1) return lists.get(0);
+    	else {
+    		ListNode ret = lists.get(0);
+    		for(int i=1;i<lists.size();i++){
+    			ret = merge2List(ret, lists.get(i));
+    		}
+    		
+    		return ret;
+    	}    	
+    }
+    
     
     
 }
