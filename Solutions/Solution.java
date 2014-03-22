@@ -1876,7 +1876,49 @@ public class Solution {
     	return ret;
     }    
     
+    class RandomListNode {
+    	 int label;
+    	 RandomListNode next, random;
+    	 RandomListNode(int x) { this.label = x; }
+    }
+    	 
+    public RandomListNode copyRandomList(RandomListNode head) {
+        Hashtable<RandomListNode, RandomListNode> map = new Hashtable<RandomListNode, RandomListNode>();
+        
+        RandomListNode list = head, ret = null, previous = null, newhead = null;
+        while(list != null){        	
+        	ret = new RandomListNode(list.label);
+        	map.put(list, ret);        	
+        	list = list.next;
+        	if (previous == null){
+        		newhead = ret;
+        		previous = ret;
+        	}
+        	else{
+        		previous.next = ret;
+        		previous = ret;
+        	}
+        }
+        
+        list = head;
+        ret = newhead;
+        while(list != null){
+        	if (list.random != null){
+        		RandomListNode random = map.get(list.random);
+        		RandomListNode newparent = map.get(list);
+        		newparent.random = random;
+        	}
+        	list = list.next;
+        	ret = ret.next;
+        }
+        
+        return newhead;
+    }
+        
+
     
+    
+        
 }
 
 
