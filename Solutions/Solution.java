@@ -43,6 +43,7 @@ public class Solution {
 		//solution.Test_isSymmetric();
 		//solution.Test_combine();
 		//solution.test_removeNthFromEnd();
+		//solution.test_strStr();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -1915,7 +1916,38 @@ public class Solution {
         return newhead;
     }
         
-
+    public void test_strStr(){
+    	System.out.printf("%s\r\n", strStr("a", "a"));
+    }
+    
+    /**
+     * "", "" return "" instead of null?
+     * @param haystack
+     * @param needle
+     * @return
+     */
+    public String strStr(String haystack, String needle) {
+        if (haystack == null || needle == null) return null;
+        else if (haystack == "" && needle == "") return "";
+        int index = -1;       
+        
+        for (int i=0;i<haystack.length() - needle.length() + 1;i++){
+        	boolean match = true;
+        	for(int j=0;j<needle.length();j++){
+        		if (haystack.charAt(i+j) != needle.charAt(j)) {
+        			match = false;
+        			break;
+        		}
+        	}
+        	if (match){
+        		index = i;
+        		break;
+        	}
+        }
+        
+        if (index >= 0) return haystack.substring(index);
+        else return null;
+    }
     
     
         
