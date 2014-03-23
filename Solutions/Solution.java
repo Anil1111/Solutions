@@ -1947,10 +1947,33 @@ public class Solution {
         
         if (index >= 0) return haystack.substring(index);
         else return null;
+    }    
+   
+    private int balancedNodes(TreeNode left, TreeNode right){
+    	int leftheight = 0, rightheight = 0;
+    	
+    	if (left != null) leftheight = balancedNodes(left.left, left.right);    	
+    	if (leftheight >= 0 && right != null) rightheight = balancedNodes(right.left, right.right);
+    	
+    	if (leftheight >= 0 && rightheight >= 0){
+    		if (Math.abs(leftheight - rightheight) <= 1){
+    			return Math.max(leftheight, rightheight) + 1;
+    		}
+    		else return -1;
+    	}
+    	
+    	//not balanced nodes
+    	return -1;
     }
+
+    public boolean isBalanced(TreeNode root) {
+        if (root == null) return true;
+        else return balancedNodes(root.left, root.right) > 0;
+    }
+ 
     
     
-        
+    
 }
 
 
