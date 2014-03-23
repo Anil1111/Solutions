@@ -1994,8 +1994,44 @@ public class Solution {
         	previous = node;
         }
     }
-
-
+    
+    public class Interval {
+        int start;
+        int end;
+        Interval() { start = 0; end = 0; }
+        Interval(int s, int e) { start = s; end = e; }
+    }
+    
+    public ArrayList<Interval> insert(ArrayList<Interval> intervals, Interval newInterval) {
+    	ArrayList<Interval> ret = new ArrayList<Interval>();
+    	for(Interval interval : intervals){
+    		if (newInterval == null || interval.end < newInterval.start){
+    			ret.add(interval);
+    		}
+    		else if (interval.start > newInterval.end){
+    			ret.add(newInterval);
+    			newInterval = null;
+    			ret.add(interval);
+    		}
+    		else if (interval.start <= newInterval.start && interval.end >=newInterval.end){
+    			newInterval = null;
+    			ret.add(interval);
+    		}
+    		else if (interval.start < newInterval.start){
+    			newInterval.start = interval.start;
+    		}
+    		else if (interval.end > newInterval.end){
+    			newInterval.end = interval.end;
+    			ret.add(newInterval);
+    			newInterval = null;
+    		}
+    	}
+    	if (newInterval != null) ret.add(newInterval);
+    	
+    	return ret;
+    }
+    
+    
     
     
 }
