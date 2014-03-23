@@ -1971,7 +1971,31 @@ public class Solution {
         else return balancedNodes(root.left, root.right) > 0;
     }
  
-    
+    public void flatten(TreeNode root) {
+    	ArrayList<TreeNode> ret = new ArrayList<TreeNode>();
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        
+        if (root != null) stack.add(root);
+        while(!stack.isEmpty()){
+        	TreeNode node = stack.pop();
+        	ret.add(node);
+        	
+        	if (node.right != null) stack.push(node.right);
+        	if (node.left != null) stack.push(node.left);
+        }
+        
+        TreeNode previous = null;
+        for(int i=0;i<ret.size();i++){
+        	TreeNode node = ret.get(i);
+        	node.left = null;
+        	if (previous != null){
+        		previous.right = node;
+        	}
+        	previous = node;
+        }
+    }
+
+
     
     
 }
