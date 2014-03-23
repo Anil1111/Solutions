@@ -510,7 +510,6 @@ public class Solution {
     	return ret;
     }
     
-    //TODO: merge sort
     public ListNode sortList(ListNode head){
     	if (head == null || head.next == null) return head;
     	
@@ -986,7 +985,6 @@ public class Solution {
         	for(int j=0;j<results.size();j++){
         		//ASSERT: 3 numbers in result
         		ArrayList<Integer> result = results.get(j);
-        		//TODO: remove bad results 
         		
         		result.add(first);
         		
@@ -1417,7 +1415,6 @@ public class Solution {
     }
     
     public ArrayList<String[]> solveNQueens(int n) {
-     	ArrayList<String[]> ret = new ArrayList<String[]>();
     	boolean[] cols = new boolean[n];
     	boolean[] crls = new boolean[2*n-1];
     	boolean[] crrs = new boolean[2*n-1];
