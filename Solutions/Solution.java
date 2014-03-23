@@ -2031,6 +2031,34 @@ public class Solution {
     	return ret;
     }
     
+    public void reorderList(ListNode head) {
+        ArrayList<ListNode> list = new ArrayList<ListNode>();
+        ListNode node = head;
+        while(node != null){
+        	list.add(node);
+        	node = node.next;
+        }
+
+        ListNode previous = null;
+        int start = 0, end = list.size() - 1;
+        while(start < end){
+        	ListNode first = list.get(start);
+        	ListNode second = list.get(end);
+        	if (previous != null) previous.next = first;
+        	first.next = second;
+        	previous = second;
+        	start ++;
+        	end --;
+        }
+        if (start == end && previous != null){
+        	previous.next = list.get(start);
+        	previous.next.next = null;
+        }
+        else if (previous != null) previous.next = null;
+    }
+    
+    
+    
     
     
     
