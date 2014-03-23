@@ -44,6 +44,8 @@ public class Solution {
 		//solution.Test_combine();
 		//solution.test_removeNthFromEnd();
 		//solution.test_strStr();
+		//solution.test_sortedListToBST();
+		solution.Test_divide();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -1492,57 +1494,7 @@ public class Solution {
         return new ArrayList<ArrayList<Integer>>(ret);
     }        
     
-    /*
-    public void Test_divide(){
-    	System.out.printf("%d \r\n", divide(8, 3));
-    	System.out.printf("%d \r\n", divide(600000000, 3));
-    	System.out.printf("%d \r\n", divide(2147483647,2));
-    	System.out.printf("%d \r\n", divide(-2147483648,1));
-    }
-        
-    public int divide(int dividend, int divisor) {
-        if (divisor == 0) return -1;
-        boolean neg1 = false, neg2 = false;
-        if (dividend < 0){ 
-            neg1 = true;
-            dividend = -dividend;
-        }
-        if (divisor < 0){
-            neg2 = true;
-            divisor = -divisor;
-        }
-        
-        int pow = 1, val = divisor, temp = dividend; 
-        while(divisor < temp){
-        	pow = pow << 1;
-        	temp = temp >> 1;
-        	val = val << 1;
-        	System.out.printf("%d %d\r\n", val, temp);
-        }
-        
-        while(val > dividend){
-        	val = val >> 1;
-        	pow = pow >> 1;
-        }
-        
-        int remain = dividend - val;
-        int count = pow;
-        while(remain > divisor){
-        	if (val < remain){
-	            remain -= val;
-	            count += pow;
-        	}
-        	pow = pow >> 1;
-			val = val >> 1;
-        }
-        if (remain == divisor) count ++;
-
-        if ((!neg1 && neg2) || (neg1 && !neg2)) count *= -1;
-        
-        return count;
-    }
-    */
-    
+   
     public void Test_isSymmetric(){
     	TreeNode root = new TreeNode(9);
     	TreeNode node = new TreeNode(-42);
@@ -2054,7 +2006,126 @@ public class Solution {
         else if (previous != null) previous.next = null;
     }
     
+    public void test_sortedListToBST(){
+    	ListNode node = new ListNode(0);
+    	
+    	ListNode next = new ListNode(1);
+    	node.next = next;
+    	ListNode next1 = new ListNode(2);
+    	next.next = next1;
+    	next = next1;
+    	
+    	next1 = new ListNode(3);
+    	next.next = next1;
+    	next = next1;
+    	next1 = new ListNode(4);
+    	next.next = next1;
+    	next = next1;
+    	next1 = new ListNode(5);
+    	next.next = next1;
+    	next = next1;
+    	next1 = new ListNode(6);
+    	next.next = next1;
+    	next = next1;
+    	
+    	TreeNode treenode = sortedListToBST(node);        	
+    }
     
+    /**
+     * recursively create BST from sorted list
+     * @param list
+     * @return
+     */
+    private TreeNode sortedListToBST(ArrayList<TreeNode> treelist, int start, int length){
+    	TreeNode treehead = null;
+    	
+    	int middle = length / 2 + start;
+        if (length > 0 && middle - start < length){
+            //System.out.printf("%d %d %d\r\n", start, middle, length);
+        	treehead = treelist.get(middle);
+        	TreeNode subnode = sortedListToBST(treelist, start, middle - start); 
+        	if (subnode != null) treehead.left = subnode;
+        	subnode = sortedListToBST(treelist, middle + 1, length - middle + start - 1);
+        	if (subnode != null) treehead.right = subnode;
+        }
+    	return treehead;
+    }
+    
+    public TreeNode sortedListToBST(ListNode head) {
+        ListNode listnode = head;
+        ArrayList<TreeNode> treelist = new ArrayList<TreeNode>();
+        
+        while(listnode != null){
+        	TreeNode treenode = new TreeNode(listnode.val);
+        	listnode = listnode.next;        	
+        	treelist.add(treenode);
+        }
+       
+        return sortedListToBST(treelist, 0, treelist.size());
+    }
+    
+    public TreeNode sortedArrayToBST(int[] num) {
+        ArrayList<TreeNode> treelist = new ArrayList<TreeNode>();
+        
+        for(int i : num){
+        	TreeNode treenode = new TreeNode(i);
+        	treelist.add(treenode);
+        }
+        
+        return sortedListToBST(treelist, 0, treelist.size());        
+    }
+    
+    
+    public void Test_divide(){
+    	System.out.printf("%d \r\n", divide(8, 3));
+    	System.out.printf("%d \r\n", divide(600000000, 3));
+    	System.out.printf("%d \r\n", divide(2147483647,2));
+    	System.out.printf("%d \r\n", divide(-2147483648,1));
+    	System.out.printf("%d \r\n", divide(-1010369383, -2147483648));
+    }
+        
+    public int divide(int dividend, int divisor) {
+        if (divisor == 0) return -1;
+        boolean neg1 = false, neg2 = false;
+        long div = dividend, dis = divisor;
+        if (div < 0){ 
+            neg1 = true;
+            div = -div;
+        }
+        if (divisor < 0){
+            neg2 = true;
+            dis = -dis;
+        }
+        
+        long pow = 1, val = dis, temp = div; 
+        while(dis < temp){
+        	pow = pow << 1;
+        	temp = temp >> 1;
+        	val = val << 1;
+        }
+        
+        while(val > div){
+        	val = val >> 1;
+        	pow = pow >> 1;
+        }
+        
+        long remain = div - val;
+        long count = pow;
+        while(remain > dis){
+        	if (val < remain){
+	            remain -= val;
+	            count += pow;
+        	}
+        	pow = pow >> 1;
+			val = val >> 1;
+        }
+        if (remain == dis) count ++;
+
+        if ((!neg1 && neg2) || (neg1 && !neg2)) count *= -1;
+        
+        return (int)count;
+    }    
+
     
     
     
