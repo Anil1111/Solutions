@@ -45,7 +45,7 @@ public class Solution {
 		//solution.test_removeNthFromEnd();
 		//solution.test_strStr();
 		//solution.test_sortedListToBST();
-		solution.Test_divide();
+		//solution.Test_divide();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -2125,8 +2125,34 @@ public class Solution {
         
         return (int)count;
     }    
+   
+    public void connect(TreeLinkNode root) {
+    	ArrayList<ArrayList<TreeLinkNode>> ret = new ArrayList<ArrayList<TreeLinkNode>>();
+    	if (root == null) return;
+    	
+    	ArrayList<TreeLinkNode> list = new ArrayList<TreeLinkNode>();
+    	list.add(root);
+    	while(list.size() > 0){
+    		ArrayList<TreeLinkNode> next = new ArrayList<TreeLinkNode>();
 
-    
+    		for(TreeLinkNode node : list){
+    			if (node.left != null) next.add(node.left);
+    			if (node.right != null) next.add(node.right);
+    		}
+    		
+    		ret.add(list);
+    		list = next;
+    	}
+    	
+    	for(ArrayList<TreeLinkNode> level : ret){
+    		TreeLinkNode node = level.get(0);
+    		for(int i=0;i<level.size();i++){
+    			TreeLinkNode next = level.get(i);
+    			node.next = next;
+    			node = next;
+    		}
+    	}   
+    }
     
     
     
