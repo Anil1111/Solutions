@@ -2126,6 +2126,10 @@ public class Solution {
         return (int)count;
     }    
    
+    /**
+     * TODOP is this constant extra space?
+     * @param root
+     */
     public void connect(TreeLinkNode root) {
     	ArrayList<ArrayList<TreeLinkNode>> ret = new ArrayList<ArrayList<TreeLinkNode>>();
     	if (root == null) return;
