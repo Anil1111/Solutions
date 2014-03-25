@@ -2175,7 +2175,81 @@ public class Solution {
     	connect(head.next);
     }
     
-    
+    public class LRUCache {
+    	class DoubleLinkNode{
+    		public int Key, Value;
+    		public DoubleLinkNode prev, next;
+    		public DoubleLinkNode(int key, int val){
+    			Key = key;
+    			Value = val;
+    		}
+    	}
+    	Hashtable<Integer, DoubleLinkNode> hashtable;
+    	DoubleLinkNode head = null, tail = null;
+    	int maxsize;
+        public LRUCache(int capacity) {
+            hashtable = new Hashtable<Integer, DoubleLinkNode>(capacity);
+            maxsize = capacity;
+        }
+        
+        public int get(int key) {
+        	DoubleLinkNode node = hashtable.get(key);
+        	if (node == null) return -1;
+        	else{//move just used item to the head
+        		if (node != head){
+	    			node.prev.next = node.next;
+	    			if (node.next != null) node.next.prev = node.prev;
+	    			if (tail == node) tail = node.prev;
+	    			node.next = head;
+	    			node.prev = null;
+	    			head.prev = node;
+	    			head = node;
+        		}
+        		return node.Value;
+        	}
+        }
+        
+        public void set(int key, int value) {
+        	DoubleLinkNode node = null;
+            if (!hashtable.containsKey(key)){
+            	if (hashtable.size() == maxsize){
+            		hashtable.remove(tail.Key);
+            		if (tail.prev != null){
+	            		tail.prev.next = null;
+	            		tail = tail.prev;
+            		}
+            		else{//size 1
+            		    head = null;
+            		    tail = null;
+            		}
+            	}
+        		node = new DoubleLinkNode(key, value);
+        		hashtable.put(key, node);
+           		node.next = head;
+           		if (head != null) head.prev = node;
+           		head = node;
+           		if (tail == null) tail = node;
+           		else if (tail == node) tail = node.prev;
+            }
+            else{
+            	node = hashtable.get(key);
+            	node.Value = value;
+        		if (node != head){
+	    			node.prev.next = node.next;
+	    			if (node.next != null) node.next.prev = node.prev;
+	    			if (tail == node) tail = node.prev;
+	    			node.next = head;
+	    			node.prev = null;
+	    			head.prev = node;
+	    			head = node;
+        		}
+        	}
+        }
+
+
+
+
+}
     
     
     
