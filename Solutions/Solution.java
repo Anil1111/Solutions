@@ -2127,10 +2127,10 @@ public class Solution {
     }    
    
     /**
-     * TODOP is this constant extra space?
+     * TODO: not constant extra space
      * @param root
      */
-    public void connect(TreeLinkNode root) {
+    public void connect1(TreeLinkNode root) {
     	ArrayList<ArrayList<TreeLinkNode>> ret = new ArrayList<ArrayList<TreeLinkNode>>();
     	if (root == null) return;
     	
@@ -2157,6 +2157,26 @@ public class Solution {
     		}
     	}   
     }
+    
+    public void connect(TreeLinkNode root) {
+        if (root == null) return;
+        
+        TreeLinkNode head = new TreeLinkNode(-1);
+        for(TreeLinkNode current = root, previous = head; current != null ; current = current.next){
+        	if (current.left != null){
+        		previous.next = current.left;
+        		previous = previous.next;
+        	}
+        	if (current.right != null){
+        		previous.next = current.right;
+        		previous = previous.next;
+        	}
+        }
+    	connect(head.next);
+    }
+    
+    
+    
     
     
     
