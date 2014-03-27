@@ -216,7 +216,7 @@ public class Solution {
 		return false;
     }
     
-    public boolean wordBreak(String s, Set<String> dict) {
+    public boolean wordBreak2(String s, Set<String> dict) {
         if(s == null || dict == null) return false;
         boolean[] dp = new boolean[s.length()+1];
         dp[0] = true;
@@ -2296,7 +2296,51 @@ public class Solution {
         return cur;
     }
     
+    private ArrayList<String> genPath(String s, int k, Hashtable<Integer, ArrayList<Integer>> map){
+    	ArrayList<String> ret = new ArrayList<String>();
+    	if (map.containsKey(k)){
+    		for(Integer i : map.get(k)){
+    			String str = s.substring(k, i);
+    			if (i == s.length()){
+    				ret.add(str);
+    			}
+    			else{
+    				ArrayList<String> list = genPath(s, i, map);
+        			for(String result : list){
+        				ret.add(str + " " + result);
+        			}
+    			}
+    		}
+    	}
+    	return ret;
+    }
     
+	public ArrayList<String> wordBreak(String s, Set<String> dict) {
+		ArrayList<String> ret = new ArrayList<String>();
+		if (s == null || dict == null) return ret;
+		
+		boolean[] dp = new boolean[s.length() + 1];
+		Hashtable<Integer, ArrayList<Integer>> map = new Hashtable<Integer, ArrayList<Integer>>();
+		dp[0] = true;
+		for (int i = 1; i <= s.length(); i++){
+			for (int k = 0; k < i; k++){
+				if (dp[k] && dict.contains(s.substring(k, i))){
+					dp[i] = true;
+					ArrayList<Integer> list;
+					if (map.containsKey(k)) list = map.get(k);
+					else list = new ArrayList<Integer>();
+					list.add(i);
+					map.put(k, list);
+				}
+			}
+		}
+		
+		if (dp[s.length()]){
+			ret = genPath(s, 0, map);
+		}
+
+		return ret;
+	}
     
     
     
