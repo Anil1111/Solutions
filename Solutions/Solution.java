@@ -2342,7 +2342,43 @@ public class Solution {
 		return ret;
 	}
     
-    
+    public ArrayList<Interval> merge(ArrayList<Interval> intervals) {
+        ArrayList<Interval> ret = new ArrayList<Interval>();
+        if (intervals == null || intervals.size() < 1) return ret;
+        
+    	for(int i=0;i<intervals.size(); i++){
+    		Interval newInterval = intervals.get(i);
+    		
+    		ArrayList<Interval> newret = new ArrayList<Interval>();
+    		for(Interval interval : ret){
+	    		if (newInterval == null || interval.end < newInterval.start){
+	    			newret.add(interval);
+	    		}
+	    		else if (interval.start > newInterval.end){
+	    			newret.add(newInterval);
+	    			newInterval = null;
+	    			newret.add(interval);
+	    		}
+	    		else if (interval.start <= newInterval.start && interval.end >=newInterval.end){
+	    			newInterval = null;
+	    			newret.add(interval);
+	    		}
+	    		else if (interval.start < newInterval.start){
+	    			newInterval.start = interval.start;
+	    		}
+	    		else if (interval.end > newInterval.end){
+	    			newInterval.end = interval.end;
+	    			newret.add(newInterval);
+	    			newInterval = null;
+	    		}
+    		}
+        	if (newInterval != null) newret.add(newInterval);
+        	ret = newret;
+    	}
+    	
+    	return ret;    
+    } 
+
     
 }
 
