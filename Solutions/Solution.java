@@ -46,6 +46,7 @@ public class Solution {
 		//solution.test_strStr();
 		//solution.test_sortedListToBST();
 		//solution.Test_divide();
+		//solution.test_singleNumber();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -209,7 +210,7 @@ public class Solution {
 	    	System.out.printf("%s %s\r\n", s, word);
 			if (s.startsWith(word)){
 				String temp = s.substring(word.length());
-				if (wordBreak(temp, dict)) return true;
+				if (wordBreak1(temp, dict)) return true;
 			}
 		}
 
@@ -2377,7 +2378,35 @@ public class Solution {
     	}
     	
     	return ret;    
-    } 
+    }
+    
+    public void test_singleNumber(){
+    	System.out.printf("%d\r\n", singleNumber(new int[]{1}));
+    }
+
+    public int singleNumber(int[] A) {
+        int ret = 0;
+        int width = Integer.SIZE;
+        int[] bits = new int[width];
+        
+        for (int a : A){
+        	int b = a;
+        	for (int i=0;i<bits.length;i++){
+        		if ((b & 1) == 1){
+        			bits[i] += 1;
+        			bits[i] %= 3;
+        		}
+        		b = b >> 1;
+        	}
+        }
+        
+        for(int i=0;i<bits.length;i++){
+        	ret += bits[i] << i;
+        }
+        
+        return ret;
+    }
+    
 
     
 }
