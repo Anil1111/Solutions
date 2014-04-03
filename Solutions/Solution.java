@@ -2407,7 +2407,19 @@ public class Solution {
         return ret;
     }
     
+    public boolean hasPathSum(TreeNode root, int sum) {
+    	if (root == null) return false;
+    	//only leaf node
+    	if (sum == root.val && (root.left == null && root.right == null)) return true;
 
+    	boolean ret = false;  
+
+    	ret = hasPathSum(root.left, sum - root.val);
+    	
+    	if (!ret) ret = hasPathSum(root.right, sum - root.val);
+    	
+    	return ret;
+    }
     
 }
 
