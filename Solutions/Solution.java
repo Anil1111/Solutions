@@ -2421,6 +2421,38 @@ public class Solution {
     	return ret;
     }
     
+    public ArrayList<ArrayList<Integer>> pathSum(TreeNode root, int sum) {
+    	ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
+    	if (root == null) return ret;
+
+    	if (sum == root.val && (root.left == null && root.right == null)){
+    		ArrayList<Integer> result = new ArrayList<Integer>();
+    		result.add(root.val);
+    		ret.add(result);
+    		return ret;
+    	}
+
+    	ArrayList<ArrayList<Integer>> results1 = pathSum(root.left, sum - root.val);
+    	for(int i=0;i<results1.size();i++){
+    		ArrayList<Integer> result = results1.get(i);
+    		result.add(0, root.val);
+    		ret.add(result);
+    	}
+    	
+    	ArrayList<ArrayList<Integer>> results2 = pathSum(root.right, sum - root.val);
+    	for(int i=0;i<results2.size();i++){
+    		ArrayList<Integer> result = results2.get(i);
+    		result.add(0, root.val);
+    		ret.add(result);
+    	}
+    	
+    	return ret;
+    }
+    
+    
+    
+    
+    
 }
 
 
