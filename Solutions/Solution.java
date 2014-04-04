@@ -2449,7 +2449,42 @@ public class Solution {
     	return ret;
     }
     
+    public ArrayList<ArrayList<Integer>> tryCombinationSum(int[] candidates, int target) {
+    	ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
+    	
+    	for(int candidate : candidates){
+    		if (candidate == target){
+    			ArrayList<Integer> result = new ArrayList<Integer>();
+    			result.add(candidate);
+    			ret.add(result);
+    		}
+    		else if (candidate < target){
+    			ArrayList<ArrayList<Integer>> results = combinationSum(candidates, target - candidate);
+    			for(int i=0;i<results.size();i++){    				
+    				ArrayList<Integer> result = results.get(i);
+    				result.add(candidate);
+    				
+    				ret.add(result);
+    			}
+    		}
+    	}
+    	
+    	return ret;
+    }
     
+    public ArrayList<ArrayList<Integer>> combinationSum(int[] candidates, int target) {
+    	ArrayList<ArrayList<Integer>> results = tryCombinationSum(candidates, target);
+    	HashSet<ArrayList<Integer>> sets = new HashSet<ArrayList<Integer>>();
+    	
+    	for(int i=0;i<results.size();i++){
+    		ArrayList<Integer> result = results.get(i);
+    		
+    		Collections.sort(result);
+    		sets.add(result);
+    	}
+    	
+    	return new ArrayList<ArrayList<Integer>>(sets);
+    }
     
     
     
