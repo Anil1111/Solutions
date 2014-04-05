@@ -48,6 +48,7 @@ public class Solution {
 		//solution.Test_divide();
 		//solution.test_singleNumber();
 		//solution.test_tryCombinationSum2();
+		//solution.test_firstMissingPositive();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -2546,7 +2547,36 @@ public class Solution {
     	}
     }
     
+    public void test_firstMissingPositive(){
+    	System.out.printf("%d\r\n", firstMissingPositive(new int[]{1,2,0}));
+    	System.out.printf("%d\r\n", firstMissingPositive(new int[]{3,4,-1,1}));
+    	System.out.printf("%d\r\n", firstMissingPositive(new int[]{-1,4,2,1,9,10}));
+    	System.out.printf("%d\r\n", firstMissingPositive(new int[]{4,3,2,1}));
+    }
     
+    public int firstMissingPositive(int[] A) {
+        for(int i=0;i<A.length;i++){
+        	//System.out.printf("i %d - ", i);
+        	//for(int a : A) System.out.printf("%d ", a);
+        	//System.out.println();
+        	if (A[i] > 0 && A[i] < A.length){
+                if (A[A[i]-1] != A[i]){  
+                    int temp = A[A[i]-1];
+                    A[A[i]-1] = A[i];
+                    A[i] = temp;
+                    i--;  
+                }  
+        	}
+        }
+        
+        for (int i=0; i<A.length; i++){  
+            if (A[i]-1 != i){  
+                return i+1;  
+            }
+        }
+  
+        return A.length+1; 
+    }
     
     
 }
