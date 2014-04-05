@@ -47,6 +47,7 @@ public class Solution {
 		//solution.test_sortedListToBST();
 		//solution.Test_divide();
 		//solution.test_singleNumber();
+		//solution.test_tryCombinationSum2();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -2459,7 +2460,7 @@ public class Solution {
     			ret.add(result);
     		}
     		else if (candidate < target){
-    			ArrayList<ArrayList<Integer>> results = combinationSum(candidates, target - candidate);
+    			ArrayList<ArrayList<Integer>> results = tryCombinationSum(candidates, target - candidate);
     			for(int i=0;i<results.size();i++){    				
     				ArrayList<Integer> result = results.get(i);
     				result.add(candidate);
@@ -2485,6 +2486,66 @@ public class Solution {
     	
     	return new ArrayList<ArrayList<Integer>>(sets);
     }
+    
+    
+    
+    
+    public ArrayList<ArrayList<Integer>> tryCombinationSum2(ArrayList<Integer> candidates, int target) {
+    	ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
+    	
+    	for(int i=0;i<candidates.size();i++){
+    		Integer candidate = candidates.get(i);
+    		//System.out.printf("i %d c %d t %d\r\n", i, candidate, target);
+    		if (candidate == target){
+    			ArrayList<Integer> result = new ArrayList<Integer>();
+    			result.add(candidate);
+    			ret.add(result);
+    		}
+    		else if (candidate < target){
+    			candidates.remove(i);
+    			ArrayList<ArrayList<Integer>> results = tryCombinationSum2(candidates, target - candidate);
+    			for(int j=0;j<results.size();j++){    				
+    				ArrayList<Integer> result = results.get(j);
+    				result.add(candidate);
+    				
+    				ret.add(result);
+    			}
+    			candidates.add(i, candidate);
+    		}
+    		else{
+    			break;//skip rest
+    		}
+    	}
+    	
+    	return ret;
+    }
+    
+    public ArrayList<ArrayList<Integer>> combinationSum2(int[] num, int target) {
+    	ArrayList<Integer> candidates = new ArrayList<Integer>();    	
+    	for(int n : num) candidates.add(n);
+    	Collections.sort(candidates);
+    	
+    	ArrayList<ArrayList<Integer>> results = tryCombinationSum2(candidates, target);
+    	HashSet<ArrayList<Integer>> sets = new HashSet<ArrayList<Integer>>();
+    	
+    	for(int i=0;i<results.size();i++){
+    		ArrayList<Integer> result = results.get(i);
+    		
+    		Collections.sort(result);
+    		sets.add(result);
+    	}
+    	
+    	return new ArrayList<ArrayList<Integer>>(sets);
+    }
+     
+    public void test_tryCombinationSum2(){
+    	ArrayList<ArrayList<Integer>> results = combinationSum2(new int[]{1,2}, 2);
+    	for(ArrayList<Integer> result: results){
+    		for(Integer r : result) System.out.printf("%d ", r);
+    		System.out.println();
+    	}
+    }
+    
     
     
     
