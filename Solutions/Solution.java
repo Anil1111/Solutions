@@ -50,6 +50,7 @@ public class Solution {
 		//solution.test_tryCombinationSum2();
 		//solution.test_firstMissingPositive();
 		//solution.test_nextPermutation();
+		//solution.test_simplifyPath();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -2643,6 +2644,57 @@ public class Solution {
     		}
         }
     }
+    
+    public ListNode detectCycle(ListNode head) {
+        ListNode one = head, two = head;
+        while(two !=null){
+            one = one.next;
+            two = two.next;
+            if (two != null){ 
+                two = two.next;
+                if (one != null && two != null && one == two)
+                {
+                	ListNode three = head;
+                	while (one != three){
+                		one = one.next;
+                		three = three.next;
+                	}
+                	return one;
+                }
+            }
+            else return null;
+        };
+        
+        return null;
+    }
+    
+    public void test_simplifyPath(){
+    	System.out.printf("%s\r\n", simplifyPath("//."));
+    }
+    
+    public String simplifyPath(String path) {
+        String[] paths = path.split("/");
+        StringBuilder builder = new StringBuilder();
+        Stack<String> stack = new Stack<String>();
+        for(String p : paths){
+        	//System.out.printf("p %s\r\n", p);
+        	if (p.length() > 0 && !p.equals(".")) stack.push(p);
+        }
+        int level = 0;
+        while(!stack.isEmpty()){
+        	String p = stack.pop();
+        	//System.out.printf("s %s\r\n", p);
+        	if (p.equals("..")) level ++;
+        	else if (level == 0){
+        			builder.insert(0, "/" + p);
+        		}
+        	else if (level > 0) level --;        	
+        }
+        if (builder.length() == 0) return "/";
+        return builder.toString();
+    }
+    
+    
     
     
     
