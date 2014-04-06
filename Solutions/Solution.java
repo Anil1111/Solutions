@@ -49,6 +49,7 @@ public class Solution {
 		//solution.test_singleNumber();
 		//solution.test_tryCombinationSum2();
 		//solution.test_firstMissingPositive();
+		solution.test_nextPermutation();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -2577,6 +2578,72 @@ public class Solution {
   
         return A.length+1; 
     }
+    
+    public void test_nextPermutation(){
+    	int[] num = new int[]{1,3,2};
+    	for(int n : num) System.out.printf("%d ", n);
+    	System.out.printf("-> ");
+    	nextPermutation(num);
+    	for(int n : num) System.out.printf("%d ", n);
+    	System.out.println();
+    	num = new int[]{3,2,1};
+    	for(int n : num) System.out.printf("%d ", n);
+    	System.out.printf("-> ");
+    	nextPermutation(num);
+    	for(int n : num) System.out.printf("%d ", n);
+    	System.out.println();
+    	num = new int[]{1,1,5};
+    	for(int n : num) System.out.printf("%d ", n);
+    	System.out.printf("-> ");
+    	nextPermutation(num);
+    	for(int n : num) System.out.printf("%d ", n);
+    	System.out.println();
+    }
+    
+    public void nextPermutation(int[] num) {
+    	if (num == null || num.length < 2) return;
+    	
+    	boolean reverseFlag = true;
+        for(int i=num.length-1;i>0;i--){
+        	if (num[i] > num[i-1]){
+        		reverseFlag = false;
+        		int firstlarger = i;
+        		for(int j=num.length-1;j>i;j--){
+        			if (num[j]>num[i-1]){
+        				firstlarger = j;
+        				break;
+        			}
+        		}
+        		
+        		int temp = num[i-1];
+        		num[i-1] = num[firstlarger];
+        		num[firstlarger] = temp;
+        		
+        		int start = i, stop = num.length - 1;
+        		while(start < stop){
+        			temp = num[start];
+        			num[start] = num[stop];
+        			num[stop] = temp;
+        			start++;
+        			stop--;
+        		}
+        		
+        		break;
+        	}
+        }
+        
+        if (reverseFlag){//reverse the array
+    		int start = 0, stop = num.length - 1;
+    		while(start < stop){
+    			int temp = num[start];
+    			num[start] = num[stop];
+    			num[stop] = temp;
+    			start++;
+    			stop--;
+    		}
+        }
+    }
+    
     
     
 }
