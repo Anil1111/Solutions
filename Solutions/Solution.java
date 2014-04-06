@@ -51,6 +51,7 @@ public class Solution {
 		//solution.test_firstMissingPositive();
 		//solution.test_nextPermutation();
 		//solution.test_simplifyPath();
+		//solution.test_reverseBetween();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -2694,7 +2695,44 @@ public class Solution {
         return builder.toString();
     }
     
+    public void test_reverseBetween(){
+    	ListNode node = new ListNode(3);
+    	ListNode node1 = new ListNode(5);
+    	node.next = node1;
+    	ListNode head = reverseBetween(node, 1, 2);
+    	while(head != null){
+    		System.out.printf("%d ", head.val);
+    		head = head.next;
+    	}
+    	System.out.println();
+    }
     
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+    	ListNode holder = new ListNode(0);
+    	holder.next = head;
+    	
+        ListNode prev = holder; 
+        int index = 1;
+        while(index < m && prev != null){
+        	prev = prev.next;
+        	index ++;
+        }
+       
+        ListNode head2 = prev;
+        prev = head2.next;
+        if (prev == null || prev.next == null) return head;        
+
+        ListNode next = prev.next;
+        while(next != null && index < n){
+            prev.next = next.next;
+            next.next = head2.next;
+            head2.next = next;
+            next = prev.next;
+            index ++;
+        }
+        
+        return holder.next;
+    }
     
     
     
