@@ -49,7 +49,7 @@ public class Solution {
 		//solution.test_singleNumber();
 		//solution.test_tryCombinationSum2();
 		//solution.test_firstMissingPositive();
-		solution.test_nextPermutation();
+		//solution.test_nextPermutation();
 	}
 	   
     public int maxDepth(TreeNode root) {
