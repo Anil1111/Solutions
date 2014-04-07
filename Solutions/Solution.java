@@ -53,6 +53,7 @@ public class Solution {
 		//solution.test_simplifyPath();
 		//solution.test_reverseBetween();
 		//solution.test_minPathSum();
+		//solution.test_isNumber();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -2779,6 +2780,58 @@ public class Solution {
     	
     	return dp[grid.length-1][grid[0].length-1];
     }    
+    
+    public void test_isNumber(){
+    	System.out.printf("%b \r\n", isNumber("e"));
+    	System.out.printf("%b \r\n", isNumber("."));
+    	System.out.printf("%b \r\n", isNumber(" "));
+    	System.out.printf("%b \r\n", isNumber("0"));
+    	System.out.printf("%b \r\n", isNumber(" 0.1 "));
+    	System.out.printf("%b \r\n", isNumber("abc"));
+    	System.out.printf("%b \r\n", isNumber("1 a"));
+    	System.out.printf("%b \r\n", isNumber("2e10"));
+    	System.out.printf("%b \r\n", isNumber(" 005047e+6"));
+    	System.out.printf("%b \r\n", isNumber(" 6ee69"));
+    }
+    
+    public boolean isNumber(String s) {
+    	s = s.trim();
+    	
+    	if (s.startsWith("+") || s.startsWith("-")) s = s.substring(1);
+    	
+    	boolean dot = false, e = false, number = false, numberaftere = false, previouse = false;
+    	for(char ch : s.toCharArray()){
+    		if (!e && !dot && ch == '.'){
+    			dot = true;
+    			if (previouse) previouse = false;
+    		}
+    		else if (ch < '0' || ch > '9'){
+    			if (number && !e && ch == 'e'){
+    				e = true;
+    				previouse = true;
+    			}
+    			else if (previouse){
+    				if (ch == '-' || ch == '+'){
+        				previouse = false;
+    					continue;
+    				}
+    				else return false;
+    			}
+    			else return false;
+    		}
+    		else {
+    			number = true;
+    			if (e) numberaftere = true;
+        		if (previouse) previouse = false;
+    		}
+    	}
+    	
+    	if (e && !numberaftere) return false;
+    	if (!number) return false;
+    	
+        return true;
+    }
+    
     
     
     
