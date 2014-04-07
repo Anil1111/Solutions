@@ -52,6 +52,7 @@ public class Solution {
 		//solution.test_nextPermutation();
 		//solution.test_simplifyPath();
 		//solution.test_reverseBetween();
+		//solution.test_minPathSum();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -2733,6 +2734,53 @@ public class Solution {
         
         return holder.next;
     }
+    
+    public int tryMinPathSum(int[][] grid, int x, int y) {
+    	int m = grid.length;
+    	int n = grid[0].length;
+    	
+    	if (m == x + 1 && n == y + 1) return grid[x][y];
+    	
+    	int right = Integer.MAX_VALUE;
+    	if (x + 1 < m) right =  tryMinPathSum(grid, x + 1, y);
+    	int down = Integer.MAX_VALUE;
+    	if (y + 1 < n) down = tryMinPathSum(grid, x, y + 1);
+    	
+    	if (right < down) return grid[x][y] + right;
+    	else return grid[x][y] + down;
+    }
+    
+    public int minPathSum1(int[][] grid) {
+    	if (grid == null) return 0;
+    	
+        return tryMinPathSum(grid, 0, 0);
+    }  
+    
+    public void test_minPathSum(){
+    	int[][] grid = new int[][]{new int[]{1,2,5},new int[]{3,2,1}};
+    	
+    	System.out.printf("%d\r\n", minPathSum(grid));
+    }
+    
+    public int minPathSum(int[][] grid) {
+    	if (grid == null) return 0;
+    	
+    	int[][] dp = new int[grid.length][grid[0].length];
+    	dp[0][0] = grid[0][0];
+    	
+    	for(int i=0;i<grid.length;i++){
+    		for(int j=0;j<grid[0].length;j++){
+    			int left = i>0 ? dp[i-1][j] : Integer.MAX_VALUE;
+    			int up = j>0 ? dp[i][j-1] : Integer.MAX_VALUE;
+    			if (i>0 || j>0) dp[i][j] = left < up ? left + grid[i][j] : up + grid[i][j];
+    			//System.out.printf("i %d j %d %d\r\n", i, j, dp[i][j]);    			
+    		}
+    	}
+    	
+    	return dp[grid.length-1][grid[0].length-1];
+    }    
+    
+    
     
     
     
