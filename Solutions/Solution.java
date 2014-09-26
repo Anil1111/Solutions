@@ -2958,7 +2958,16 @@ public class Solution {
         return ret;
     }
     
-    
+    public int maxProfit(int[] prices) {
+        int start = 0, max = 0;
+        for(int i=1;i<prices.length;i++)
+        {
+            int val = prices[i] - prices[start];
+            if (val > max) max = val;
+            else if (val < 0) start = i;
+        }
+        return max;
+    }
     
     
     
