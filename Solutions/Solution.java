@@ -56,7 +56,7 @@ public class Solution {
 		//solution.test_isNumber();
 		//solution.test_longestConsecutive();
 		//solution.test_lengthOfLongestSubstring();
-		solution.trest_ladderLength();
+		//solution.trest_ladderLength();
 	}
 	   
     public int maxDepth(TreeNode root) {
