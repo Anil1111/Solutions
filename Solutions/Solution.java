@@ -55,7 +55,8 @@ public class Solution {
 		//solution.test_minPathSum();
 		//solution.test_isNumber();
 		//solution.test_longestConsecutive();
-		solution.test_lengthOfLongestSubstring();
+		//solution.test_lengthOfLongestSubstring();
+		solution.trest_ladderLength();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -2958,15 +2959,50 @@ public class Solution {
         return ret;
     }
     
-    public int maxProfit(int[] prices) {
-        int start = 0, max = 0;
-        for(int i=1;i<prices.length;i++)
-        {
-            int val = prices[i] - prices[start];
-            if (val > max) max = val;
-            else if (val < 0) start = i;
+    public void trest_ladderLength(){
+    	HashSet<String> dict = new HashSet<String>();
+    	dict.add("a");
+    	dict.add("b");
+    	dict.add("c");
+    	System.out.printf("%d", ladderLength("a", "c", dict));
+    }
+      
+    public int ladderLength(String start, String end, Set<String> dict) {
+        Stack<String> tovisit = new Stack<String>();
+        tovisit.add(start);
+        dict.remove(start);
+        int dist = 2;
+        
+        while(dict.size() > 0 && tovisit.size() > 0){
+        	Stack<String> nexttovisit = new Stack<String>();
+        	
+        	while(!tovisit.isEmpty()){
+	        	//generate new words
+	        	String visit = tovisit.pop();
+	        	//System.out.printf("%s %d\r\n", visit, dist);
+	        	
+	    		char[] chs = visit.toCharArray();
+	        	for(int i=0;i<visit.length();i++){
+	        		char ch = chs[i];
+	        		for(char newch='a';newch<='z';newch++){
+	        			if (newch==ch) continue;
+	        			chs[i] = newch;
+	        			String newword = String.copyValueOf(chs);
+	        			//System.out.printf("newword %s end %s\r\n", newword, end);
+	        			if (newword.equals(end)) return dist;
+	        			if (dict.contains(newword)) {
+	        				nexttovisit.add(newword);
+	        				dict.remove(newword);
+	        			}
+	        		}
+	        		chs[i] = ch;
+	        	}
+        	}
+        	tovisit = nexttovisit;
+            dist ++;
         }
-        return max;
+        
+        return 0;
     }
     
     
