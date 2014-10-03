@@ -3021,6 +3021,25 @@ public class Solution {
         return max;
     }
     
+    public int maxProfit(int[] prices) {
+        int start = 0, max = 0, total = 0;
+        for(int i=1;i<prices.length;i++){
+        	int diff = prices[i] - prices[start];
+        	if (diff < max) {
+        		if (max > 0) total += max;
+        		start = i;
+        		max = 0;
+        	}
+        	else{
+        		max = diff;
+        	}
+        }
+        
+        if (max > 0) total += max;
+        
+        return total;
+    }
+    
     public void trest_findLadders(){
     	HashSet<String> dict = new HashSet<String>();
     	dict.add("a");
