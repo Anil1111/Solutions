@@ -58,6 +58,7 @@ public class Solution {
 		//solution.test_lengthOfLongestSubstring();
 		//solution.trest_ladderLength();
 		//solution.trest_findLadders();
+		//solution.test_numTrees();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -3114,7 +3115,29 @@ public class Solution {
     	return ret;
     }
     
+    private void test_numTrees(){
+    	System.out.printf("%d %d\r\n", 2, numTrees(2));
+    	System.out.printf("%d %d\r\n", 3, numTrees(3));
+    }
+    
+    public int numTrees(int n) {
+    	if (n<0) return -1;
+    	if (n<1) return 1;
+    	
+    	int[] results = new int[n+1];
+        results[0]=1;
 
+        for(int i=1;i<=n;i++){
+            int sum = 0;
+        	for(int j=1;j<=i;j++){
+        		sum += results[i-j]*results[j-1];
+        		//System.out.printf("%d %d %d\r\n", i, j, sum);
+        	}
+        	results[i]=sum;
+        }
+        
+        return results[n];
+    }
     
 }
 
