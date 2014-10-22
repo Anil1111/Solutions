@@ -59,6 +59,7 @@ public class Solution {
 		//solution.trest_ladderLength();
 		//solution.trest_findLadders();
 		//solution.test_numTrees();
+		//solution.test_getRow();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -3160,6 +3161,38 @@ public class Solution {
         
         return ret;
     }    
+    
+    private void test_getRow(){
+    	List<Integer> list = getRow(3);
+    	for(Integer i : list) System.out.printf("%d ", i);
+    	System.out.println();
+    	list = getRow(4);
+    	for(Integer i : list) System.out.printf("%d ", i);
+    	System.out.println();
+    }
+    
+    public List<Integer> getRow(int rowIndex) {
+    	List<Integer> lastRow;
+    	List<Integer> list;
+        if (rowIndex>=0) {
+        	list = new ArrayList<Integer>();
+        	list.add(1);
+        	lastRow = list;
+        }
+        else return null;
+        
+        for(int i=1;i<=rowIndex;i++){
+        	list = new ArrayList<Integer>();
+        	list.add(1);
+        	for(int j=1;j<=i-1;j++){
+        		list.add(lastRow.get(j-1)+lastRow.get(j));
+        	}
+        	list.add(1);
+        	lastRow = list;
+        }
+        
+        return list;
+    }
 }
 
 
