@@ -3139,6 +3139,27 @@ public class Solution {
         return results[n];
     }
     
+    //pascal's triangle
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> ret = new ArrayList<List<Integer>>();
+        if (numRows>0) {
+        	List<Integer> list = new ArrayList<Integer>();
+        	list.add(1);
+        	ret.add(list);
+        }
+        for(int i=2;i<=numRows;i++){
+        	List<Integer> list = new ArrayList<Integer>();
+        	list.add(1);
+        	List<Integer> lastRow = ret.get(i-2);
+        	for(int j=1;j<i-1;j++){
+        		list.add(lastRow.get(j-1)+lastRow.get(j));
+        	}
+        	list.add(1);
+        	ret.add(list);
+        }
+        
+        return ret;
+    }    
 }
 
 
