@@ -60,6 +60,7 @@ public class Solution {
 		//solution.trest_findLadders();
 		//solution.test_numTrees();
 		//solution.test_getRow();
+		solution.test_countAndSay();
 	}
 	   
     public int maxDepth(TreeNode root) {
@@ -3193,6 +3194,46 @@ public class Solution {
         
         return list;
     }
+    
+    private void test_countAndSay(){
+    	for(int i=0;i<5;i++){
+    		System.out.printf("%d %s\r\n", i, countAndSay(i));
+    	};
+    }
+    
+    public String countAndSay(int n) {
+    	if (n<1) return "";
+    	
+    	List<Integer> list = new ArrayList<Integer>();
+    	list.add(1);
+    	
+    	for(int i=1;i<n;i++){
+    		List<Integer> newlist = new ArrayList<Integer>();
+    		Integer last = list.get(0);
+    		int count = 1;
+    		for(int j=1;j<list.size();j++){
+    			if (list.get(j)!=last){
+    				newlist.add(last);
+    				newlist.add(count);
+    				last = list.get(j);
+    				count = 1;
+    			}
+    			else count ++;
+    		}
+			newlist.add(last);
+			newlist.add(count);
+					
+			list = newlist;
+    	}
+    	
+    	StringBuilder builder = new StringBuilder();    	
+    	for(int i=list.size()-1;i>=0;i--){
+    		builder.append(list.get(i));
+    	}
+    	return builder.toString();
+    }
+    
+    
 }
 
 
