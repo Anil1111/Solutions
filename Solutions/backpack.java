@@ -22,8 +22,10 @@ public class Solution{
         for (int i=0;i<A.length;i++){
             if (A[i]==0) continue;
             
+            if (r == A[i]) return r;
+            
             int sum = sub+A[i];
-            if (r-A[i] >= 0 && !dp[sum][i]){
+            if (r-A[i] > 0 && !dp[sum][i]){
                 int current = A[i];
                 A[i] = 0;
                 for(int j=0;j<A.length;j++){
