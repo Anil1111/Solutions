@@ -18,7 +18,6 @@ public class Solution{
     public int backPack1(int m, int r, int[] A, boolean[][] dp) {
         int max = 0;
         
-        // write your code here
         for (int i=0;i<A.length;i++){
             if (A[i]==0) continue;
             
