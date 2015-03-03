@@ -34,6 +34,7 @@ public class Solution{
                 dp[sum][i] = true;
                 
                 int total = backPack1(m, r-current, A, dp) + current;
+                if (total == r) return r;
                 if (total > max) max = total;
                 A[i] = current;
             }
