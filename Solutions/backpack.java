@@ -21,13 +21,14 @@ public class Solution{
         for (int i=0;i<A.length;i++){
             if (A[i]==0) continue;
             
-            if (r-A[i] >= 0 && !dp[m-r+A[i]][i]){
+            int sum = m-r+A[i];
+            if (r-A[i] >= 0 && !dp[sum][i]){
                 int current = A[i];
                 A[i] = 0;
                 for(int j=0;j<A.length;j++){
-                    if (dp[m-r][j]) dp[m-r+A[i]][j] = dp[m-r][j];
+                    if (dp[m-r][j]) dp[sum][j] = dp[m-r][j];
                 }
-                dp[m-r+A[i]][i] = true;
+                dp[sum][i] = true;
                 
                 int sum = backPack1(m, r-current, A, dp) + current;
                 if (sum > max) max = sum;
