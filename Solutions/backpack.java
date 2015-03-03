@@ -30,8 +30,8 @@ public class Solution{
                 }
                 dp[sum][i] = true;
                 
-                int sum = backPack1(m, r-current, A, dp) + current;
-                if (sum > max) max = sum;
+                int total = backPack1(m, r-current, A, dp) + current;
+                if (total > max) max = total;
                 A[i] = current;
             }
         }
