@@ -17,16 +17,17 @@ public class Solution{
     
     public int backPack1(int m, int r, int[] A, boolean[][] dp) {
         int max = 0;
+        int sub = m - r;
         
         for (int i=0;i<A.length;i++){
             if (A[i]==0) continue;
             
-            int sum = m-r+A[i];
+            int sum = sub+A[i];
             if (r-A[i] >= 0 && !dp[sum][i]){
                 int current = A[i];
                 A[i] = 0;
                 for(int j=0;j<A.length;j++){
-                    if (dp[m-r][j]) dp[sum][j] = dp[m-r][j];
+                    if (dp[sub][j]) dp[sum][j] = dp[sub][j];
                 }
                 dp[sum][i] = true;
                 
