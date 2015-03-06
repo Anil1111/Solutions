@@ -4,7 +4,7 @@ public class Solution {
         
         int div=1;
         while(x/div>=10) div*=10;
-        while(x!=0){
+        while(x>0){
             int top = x/div;
             int bottom = x%10;
             if (top != bottom) return false;
