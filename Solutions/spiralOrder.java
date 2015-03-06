@@ -3,6 +3,7 @@ public class HelloWorld{
 
     /**
      * {{2,3}}, {{7},{9},{6}}, {{1,2},{3,4}}, {{1,2,3},{4,5,6},{7,8,9}}
+     * better way is to go through each direction, then call the smaller sub problem (divide and conquer)
      **/
      public static void main(String []args){
         int[][] m0 = {{2,3}};
