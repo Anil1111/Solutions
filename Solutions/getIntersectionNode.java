@@ -23,6 +23,17 @@ public class Solution {
         }
         if (nodeA != nodeB) return null;
         
+        ListNode tailB = nodeB.next;
+        tailB.next = headB;
+        nodeB = headB;
+        nodeA = headA;
+        int len=0;
+        while(nodeA != nodeB){
+            nodeA = nodeA.next;
+            nodeB = nodeB.next.next;
+            len++;
+        }
+        
         
     }
 }
