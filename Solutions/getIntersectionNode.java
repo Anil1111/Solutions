@@ -12,28 +12,33 @@
 public class Solution {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         ListNode nodeA = headA, nodeB = headB;
-        int countA = 0, countB = 0;
         while(nodeA != null && nodeA.next != null){
             nodeA = nodeA.next;
-            countA++;
         }
         while(nodeB != null && nodeB.next != null){
             nodeB = nodeB.next;
-            countB++;
         }
-        if (nodeA != nodeB) return null;
+        if (nodeA == null || nodeA != nodeB) return null;
         
+        //tortoise and rabbit algorithm
         ListNode tailB = nodeB.next;
         tailB.next = headB;
-        nodeB = headB;
         nodeA = headA;
-        int len=0;
+        nodeB = headA;
         while(nodeA != nodeB){
             nodeA = nodeA.next;
             nodeB = nodeB.next.next;
-            len++;
+        }
+
+        nodeA = headA;
+        while(nodeA!=nodeB){
+            nodeA = nodeA.next;
+            nodeB = nodeB.next;
         }
         
+        ListNode joint = nodeA;
+        tailB.next = null;
         
+        return joint;
     }
 }
