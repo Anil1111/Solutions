@@ -3,8 +3,7 @@ public class Solution {
         StringBuilder ret = new StringBuilder();
         while(n>0){
             n--;
-            int val = n % 26;
-            ret.Insert(0, (char)('A'+val));
+            ret.Insert(0, (char)('A'+n % 26));
             n/=26;
         }
         return ret.ToString();
