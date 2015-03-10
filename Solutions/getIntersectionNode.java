@@ -21,14 +21,14 @@ public class Solution {
         if (nodeA == null || nodeA != nodeB) return null;
         
         //tortoise and rabbit algorithm
-        ListNode tailB = nodeB.next;
+        ListNode tailB = nodeB;
         tailB.next = headB;
         nodeA = headA;
         nodeB = headA;
-        while(nodeA != nodeB){
+        do{
             nodeA = nodeA.next;
             nodeB = nodeB.next.next;
-        }
+        }while(nodeA != nodeB);
 
         nodeA = headA;
         while(nodeA!=nodeB){
