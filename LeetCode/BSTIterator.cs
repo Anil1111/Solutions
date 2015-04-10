@@ -9,10 +9,10 @@
  */
 
 public class BSTIterator {
-    Stack<TreeNode> stack = new Stack<TreeNode>();
-    
+    Stack<int> stack = new Stack<int>();
+
     public BSTIterator(TreeNode root) {
-        pushAll(root);
+        pushItem(root);
     }
 
     /** @return whether we have a next smallest number */
@@ -22,15 +22,14 @@ public class BSTIterator {
 
     /** @return the next smallest number */
     public int Next() {
-        TreeNode next = stack.Pop();
-        pushAll(next.right);
-        return next.val;
+        return stack.Pop();
     }
     
-    private void pushAll(TreeNode node){
-        while(node != null){
-            stack.Push(node);
-            node = node.left;
+    private void pushItem(TreeNode node){
+        if(node != null){
+            pushItem(node.right);
+            stack.Push(node.val);
+            pushItem(node.left);
         }
     }
 }
