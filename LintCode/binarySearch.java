@@ -1,4 +1,4 @@
-class Solution {
+class binarySearch {
     /**
      * @param nums: The integer array.
      * @param target: Target to find.

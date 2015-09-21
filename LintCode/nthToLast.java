@@ -8,8 +8,8 @@
  *         this.next = null;
  *     }
  * }
- */ 
-public class Solution {
+ */
+public class nthToLast {
     /**
      * @param head: The first node of linked list.
      * @param n: An integer.
