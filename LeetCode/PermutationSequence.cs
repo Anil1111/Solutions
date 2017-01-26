@@ -1,3 +1,4 @@
+
 public class Solution {
     public string GetPermutation(int n, int k) {
         var nums = new List<int>();
