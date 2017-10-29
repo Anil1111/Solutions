@@ -1,0 +1,27 @@
+public class NumArray {
+    private int[] sums;
+    
+    public NumArray(int[] nums) {
+        sums = new int[nums.Length+1];
+        int sum = 0;
+        for(int i=0;i<nums.Length;i++){
+            sums[i]=sum;
+            sum+=nums[i];
+        }
+        sums[nums.Length]=sum;
+    }
+    
+    public int SumRange(int i, int j) {
+        if (i>j || j>=sums.Length){
+            throw new ArgumentException("invalid range");
+        }
+        
+        return sums[j+1]-sums[i];
+    }
+}
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray obj = new NumArray(nums);
+ * int param_1 = obj.SumRange(i,j);
+ */
