@@ -19,42 +19,18 @@ public class TreeNode {
     {
         
     public TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        bool foundp, foundq;
-        var node = Search(root, p, q, out foundp, out foundq);        
-        if (foundp && foundq) return node;
-        else return null;
+        while(root != null){
+            if (p.val < root.val && root.val > q.val)
+                root = root.left;
+            else if (p.val > root.val && root.val < q.val)
+                root = root.right;
+            else
+                return root;
+        }
+        
+        return null;
     }
-    
-    private TreeNode Search(TreeNode root, TreeNode p, TreeNode q, out bool foundp, out bool foundq){        
-        foundp = false;
-        foundq = false;
-        
-        if (root != null){
-            bool lp = false, lq = false;
-            if (root.left != null){                
-                var node = Search(root.left, p, q, out foundp, out foundq);
-                Console.WriteLine("left " + root.val + " " + foundp + " " + foundq);
-                if (foundp && foundq) return node;
-            }
-            bool rp = false, rq = false;
-            if (root.right != null){
-                var node = Search(root.right, p, q, out rp, out rq);
-                Console.WriteLine("right " + root.val + " " + rp + " " + rq);
-                if (rp && rq) {
-                    foundp = true;
-                    foundq = true;
-                    return node;
-                }
-            }
-            
-            foundp = root == p ? true : foundp || rp;
-            foundq = root == q ? true : foundq || rq;
-        }   
-        
-        Console.WriteLine("root " + root.val + " " + foundp + " " + foundq);
-        return root;
-    }
-        
+       
         public static void Main(string[] args)
         {
             //Your code goes here
