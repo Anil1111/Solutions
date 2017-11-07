@@ -13,7 +13,7 @@ namespace Rextester
     int guessNumber(int n) {
         int low = 1, high = n;
         while(low <= high){
-            int mid = low / 2 + high / 2 + (low%2+high%2)/2;
+            int mid = low + (high - low) / 2;
             int g = guess(mid);
             if (g == 0) return mid;
             if (g == -1){
