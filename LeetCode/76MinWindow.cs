@@ -14,42 +14,48 @@ namespace Rextester
         if (s.Length==0||t.Length==0) return "";
         
         var dict = new Dictionary<char, int>();
-        foreach(var ch in t) dict[ch]=0;
-        int start=0,end=0,count=0,minstart=-1,minlen=int.MaxValue;
+        foreach(var ch in t){
+            if (dict.ContainsKey(ch)) dict[ch]++;
+            else dict[ch]=1;
+        }
         
-        do{
-            if (count<t.Length){
+        int start=0,end=0,count=t.Length,minstart=-1,minlen=int.MaxValue;        
+        while(start<=end&&end<s.Length){
+            if (count>0){
                 if (dict.ContainsKey(s[end])){
-                    dict[s[end]]++;
-                    if (dict[s[end]]==1) count++;
-                    //Console.WriteLine("end+"+end+" "+s[end]+" "+dict[s[end]]);
+                    dict[s[end]]--;
+                    if (dict[s[end]]>=0) count--;
+                    //Console.WriteLine("end  +"+end+" "+s[end]+" "+dict[s[end]]+" # "+count);
                 }
             }
             
-            if (count<t.Length){ 
+            if (count>0){ 
                 end++;
             }
             else{
-                int newlen = end-start+1;
-                if (newlen<minlen){
-                    minlen=newlen;
-                    minstart=start;
-                }
-                
-                if (dict.ContainsKey(s[start])){
-                    dict[s[start]]--;
-                    if (dict[s[start]]==0){
-                        count--;
-                        end++;
+                while(start<=end&&count==0){
+                    //Console.WriteLine("start "+start+" end "+end+" len "+minlen+" # "+count);
+                    int newlen = end-start+1;
+                    if (newlen<minlen){
+                        minlen=newlen;
+                        minstart=start;
                     }
-                    //Console.WriteLine("start-"+start+" "+s[start]+" "+dict[s[start]]);
+
+                    if (dict.ContainsKey(s[start])){
+                        dict[s[start]]++;
+                        if (dict[s[start]]>0){
+                            count++;
+                            end++;
+                        }
+                        //Console.WriteLine("start-"+start+" "+s[start]+" "+dict[s[start]]+" # "+count);
+                    }
+                    start++;
                 }
-                start++;
-            }                        
-            Console.WriteLine("#"+count+" start "+start+" end "+end+" len "+minlen);
-        }while(start<=end&&end<s.Length);
+            }      
+            //Console.WriteLine("start "+start+" end "+end+" len "+minlen+" # "+count);
+        };
         
-        if (minlen>0) return s.Substring(minstart, minlen);
+        if (minstart>=0) return s.Substring(minstart, minlen);
         return "";
     }
         
@@ -57,7 +63,12 @@ namespace Rextester
         {
             //Your code goes here
             var p = new Program();
-            Console.WriteLine(p.MinWindow("ADOBECODEBANC", "ABC"));
+            //Console.WriteLine(p.MinWindow("ADOBECODEBANC", "ABC"));
+            //Console.WriteLine("result: "+p.MinWindow("a", "a"));
+            //Console.WriteLine("result: "+p.MinWindow("aa", "aa"));
+            Console.WriteLine("result: "+p.MinWindow(
+                "rsfvquycmabtdxcmgwnoxiicpzxczxnspungqokcolwtlahrzvhwfqawraytxoloibuzpgdfsbbdeiwdddbivcenefidttrbuoclugtmjurncpqitssqwzdcelfxhwadkdrhlktueniicaqxulosktuohbnqantmsktdupaaeilgkdgfowzapuoyxdoxriklufprurtabehlipsylszampzltpjmxvxucolzfezglgutvmtgesjsikedzppzkotmdelkknrvvnqrzkzeekwmucpwrgvdvosaufkgsdeoquhqggwltuxpxplovguswmssrdzkidyzzfrgnnrghqwghjvfqpxodshuvgefjeeijvqzkjhsafyhpvohmmvpecmbkqgvxnggkwhvgppiwprlngubuqryufbfvjcsyibjhkgpbxxyoolbwgdqwwqsbtzydctdmwovgukkthiiytjwzonxkfsnzroevhhifydnsqxozhwzbhwcwlciquyrlmvhvfradwpxmnnoujnxtjcpueznyzellcuijnkokanypbmlmcjhllyiryxpxdclfxtqkeewguxvxlglnptbcrjtpikplnatmvjybqvhkucjfjutanufffawnnlacntoldmmtjufdwo",
+                "jhkeiyapffpbu"));
         }
     }
 }
