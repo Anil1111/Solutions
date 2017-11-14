@@ -12,10 +12,10 @@ namespace Rextester
     {
     public int FindNthDigit(int n) {
         int len = 1;
-        int count = 9;
+        long count = 9;
         while(n>len*count){
-            n-=len*count;
-            len ++;
+            n-=(int)(len*count);
+            len++;
             count *=10;
         }
         count /= 9;
@@ -28,10 +28,7 @@ namespace Rextester
         {
             //Your code goes here
             var p = new Program();
-            for(int i=9;i<20;i++)
-            {
-                Console.WriteLine("Hello "+p.FindNthDigit(i));
-            }
+            Console.WriteLine(p.FindNthDigit(2147483647));
         }
     }
 }
