@@ -12,35 +12,23 @@ namespace Rextester
     public class Program
     {
     public int ThirdMax(int[] nums) {
-        long m1=long.MinValue, m2=long.MinValue, m3=long.MinValue;
+        int? m1=null,m2=null,m3=null;
         foreach(var n in nums){
-            if (n > m1){
-                var tmp1 = m1;
+            if (m1 == n || m2 == n || m3 == n) continue;
+            if (m1 == null || n > m1){
+                m3 = m2;
+                m2 = m1;
                 m1 = n;
-                if (tmp1 > m2){
-                    var tmp2 = m2;
-                    m2 = tmp1;
-                    if (tmp2 > m3) m3 = tmp2;
-                }
-                else if (tmp1 == m2) continue;
-                else if (tmp1 > m3) m3 = tmp1;
             }
-            else if (n == m1){
-                continue;
-            }
-            else if (n > m2){
-                var tmp2 = m2;
+            else if (m2 == null || n > m2){
+                m3 = m2;
                 m2 = n;
-                if (tmp2 > m3) m3 = tmp2;
             }
-            else if (n == m2) continue;
-            else if (n > m3) m3 = n;
-            
-            //Console.WriteLine(string.Join(" ", new int[]{m1, m2, m3}));
+            else if (m3 == null || n > m3) m3 = n;
+            //Console.WriteLine(string.Join(" ", new int[]{m1.GetValueOrDefault(), m2.GetValueOrDefault(), m3.GetValueOrDefault()}));
         }
-        
-        if (m3 > long.MinValue) return (int)m3;
-        else return (int)m1;
+
+        return m3 == null ? m1.GetValueOrDefault() : m3.Value;
     }
         
         public static void Main(string[] args)
@@ -48,7 +36,7 @@ namespace Rextester
             //Your code goes here
             Console.WriteLine("Hello, world!");
             var p = new Program();
-            //Console.WriteLine(p.ThirdMax(new int[]{3, 2, 1}));
+            Console.WriteLine(p.ThirdMax(new int[]{3, 2, 1}));
             //Console.WriteLine(p.ThirdMax(new int[]{5, 2, 2}));
             Console.WriteLine(p.ThirdMax(new int[]{1,2,-2147483648}));
         }
