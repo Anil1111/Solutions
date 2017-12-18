@@ -11,54 +11,30 @@ namespace Rextester
     public class Program
     {
     public int LargestPalindrome(int n) {
-        long ret = 0;
-        long a = 0, b = 0, c = 1;
-        for(int i=0;i<n;i++){
-            a = a * 10 + 9;
-            c *= 10;
-        }
-        b = a;
-        c *= 10;
+        if (n==1) return 9;
+        long a = 0, b = 0;
+        long max = (long)(Math.Pow(10, n)) - 1;
+        a = max;
         
         //Console.WriteLine(a);
-        while(a>0){
-            long p = a * b;
-            
-            if (IsPalindrome(p)){
-                if (p > ret) ret = p;
+        while(a>0){          
+            long p = MakePalindrome(a);
+            //Console.WriteLine(p);
+            for (b=max;b*b>=p;b--){
+                if (p%b==0){
+                    return (int)(p%1337);
+                }
             }
-            else if (p<ret || b < c){
-                a--;
-                b = a;
-                continue;
-            }
-            
-            b--;
-            if (b==0){
-                a --;
-                b = a;
-                if (a * b < ret) break;
-            }
+            a--;
         }
         
-        Console.WriteLine(ret);
-        return (int)(ret % 1337);
+        return 0;
     }
         
-    public bool IsPalindrome(long x) {
-        if (x<0) return false;
-        
-        long div=1;
-        while(x/div>=10) div*=10;
-        while(x>0){
-            long top = x/div;
-            long bottom = x%10;
-            if (top != bottom) return false;
-            x = x%div/10;
-            div/=100;
-        }
-        
-        return true;
+    public long MakePalindrome(long x) {
+        var str = x.ToString()+string.Join("", x.ToString().Reverse());
+        //Console.WriteLine(str);
+        return long.Parse(str);
     }
         
         public static void Main(string[] args)
@@ -66,6 +42,7 @@ namespace Rextester
             //Your code goes here
             Console.WriteLine("Hello, world!");
             var p = new Program();
+            //for(int i=999;i>990;i--) Console.WriteLine(p.MakePalindrome(i));
             //Console.WriteLine(p.LargestPalindrome(1));//9 9
             //Console.WriteLine(p.LargestPalindrome(2));//9009 987
             //Console.WriteLine(p.LargestPalindrome(3));//906609 123
@@ -73,7 +50,7 @@ namespace Rextester
             //Console.WriteLine(p.LargestPalindrome(5));//9966006699 677 
             //Console.WriteLine(p.LargestPalindrome(6));//999000000999 2118
             //Console.WriteLine(p.LargestPalindrome(7));  //9420645460249 149
-            Console.WriteLine(p.LargestPalindrome(8));  //
+            Console.WriteLine(p.LargestPalindrome(8));  // 475
             
         }
     }
