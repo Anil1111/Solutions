@@ -25,27 +25,23 @@ namespace Rextester
             var dict = new Dictionary<int, int>();
             var list = new List<TreeNode>();
             list.Add(root);
+            int max=0, val;
             while(list.Count > 0){
                 int count = 0;
                 var newlist = new List<TreeNode>();
                 foreach(var node in list){
                     dict.TryGetValue(node.val, out count);
-                    dict[node.val] = count + 1;
+                    count++;
+                    dict[node.val] = count;
+                    
+                    if (count > max) max = count;
                     
                     if (node.left != null) newlist.Add(node.left);
                     if (node.right != null) newlist.Add(node.right);
                 }
                 list = newlist;
             }
-            
-            int max=0, val;
-            foreach(var key in dict.Keys){
-                if (dict[key] > max){
-                    max = dict[key];
-                    val = max;
-                }
-            }
-            
+                       
             foreach(var key in dict.Keys){
                 if (dict[key] == max){
                     ret.Add(key);
