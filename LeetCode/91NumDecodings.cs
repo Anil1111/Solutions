@@ -11,24 +11,37 @@ namespace Rextester
     public class Program
     {
     public int NumDecodings(string s) {
-        if (string.IsNullOrEmpty(s)) return 0;
+        if (string.IsNullOrEmpty(s) || s == "0") return 0;
         
-        int ret = 0;
-        int val;
-        if (s.Length > 1 && int.TryParse(s.Substring(0,2), out val)){
-            if (val > 0 && val < 27) {
-                if (s.Length > 2) ret += NumDecodings(s.Substring(2));
-                else ret += 1;
+        int len = s.Length;
+        int[] dp = new int[len];
+        
+        int val = int.Parse(s.Substring(len-1));
+        if (val > 0) dp[len-1] = 1;        
+        if (len > 1){
+            val = int.Parse(s.Substring(len-2, 1));
+            if (val > 0 && dp[len-1] > 0){
+                dp[len-2] = dp[len-1];
+            }
+            val = int.Parse(s.Substring(len-2));
+            if (val >= 10 && val < 27){
+                dp[len-2] += 1;
             }
         }
-        if (s.Length > 0 && int.TryParse(s.Substring(0,1), out val)){
-            if (val > 0){
-                if (s.Length > 1) ret += NumDecodings(s.Substring(1));
-                else return 1;
+       
+        for(int i=len-3;i>=0;i--){             
+            val = int.Parse(s.Substring(i, 1));
+            if (val > 0 && dp[i+1] > 0){
+                dp[i] = dp[i+1];
             }
-            else return 0;
+            val = int.Parse(s.Substring(i, 2));
+
+            if (val >= 10 && val < 27){
+                dp[i] += dp[i+2];
+            }
         }
-        return ret;
+        
+        return dp[0];
     }
         
         public static void Main(string[] args)
@@ -36,6 +49,9 @@ namespace Rextester
             //Your code goes here
             Console.WriteLine("Hello, world!");
             var p = new Program();
+            Console.WriteLine(p.NumDecodings("101"));
+            Console.WriteLine(p.NumDecodings("11"));
+            Console.WriteLine(p.NumDecodings("10"));
             Console.WriteLine(p.NumDecodings("4757562545844617494555774581341211511296816786586787755257741178599337186486723247528324612117156948"));
             Console.WriteLine(p.NumDecodings("012"));
             Console.WriteLine(p.NumDecodings("123"));
@@ -45,4 +61,3 @@ namespace Rextester
         }
     }
 }
-
