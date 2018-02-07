@@ -10,23 +10,19 @@ namespace Rextester
 {
     public class Program
     {
-        
-    public int CoinChange(int[] coins, int amount) {
+    public int CoinChange(int[] coins, int amount) {        
         var dp = new int[amount+1];
-        for(int i=0;i<amount;i++){
-          dp[i] = int.MaxValue;  
-        } 
+        dp[0] = 0;
+        for(int i=1;i<=amount;i++) dp[i] = amount+1;
         
-        for(int i=amount-1;i>=0;i--){
-            foreach(int c in coins){
-                if (c+i >= 0 && c+i <= amount && dp[c+i] < int.MaxValue){
-                    int d = dp[c+i] + 1;
-                    if (dp[i] > d) dp[i] = d;
-                }
+        foreach(var coin in coins){
+            for(int i=coin;i<=amount;i++){                
+                dp[i] = Math.Min(dp[i], dp[i-coin]+1);
             }
+            //Console.WriteLine(coin+" "+string.Join(",",dp));
         }
         
-        return dp[0] == int.MaxValue ? -1 : dp[0];
+        return dp[amount] == amount+1 ? -1 : dp[amount];
     }
         
         public static void Main(string[] args)
@@ -34,6 +30,7 @@ namespace Rextester
             //Your code goes here
             Console.WriteLine("Hello, world!");
             var p = new Program();
+            Console.WriteLine(p.CoinChange(new int[]{2}, 3));
             Console.WriteLine(p.CoinChange(new int[]{1,2,5}, 11));
             Console.WriteLine(p.CoinChange(new int[]{2147483647}, 2));
             Console.WriteLine(p.CoinChange(new int[]{1}, 1));
