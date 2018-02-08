@@ -13,7 +13,7 @@ namespace Rextester
     public void WiggleSort(int[] nums) {
         var sorted = nums.OrderBy(x => x).ToArray();
         int n = nums.Length;
-        int median = sorted[(n+1)/2];
+        int median = sorted[n/2];
         
         int left = 0, i = 0, right = n - 1;
 
@@ -51,6 +51,8 @@ namespace Rextester
             nums = new int[]{1, 5, 1, 1, 6, 4};
             p.WiggleSort(nums); Console.WriteLine(string.Join(",", nums));
             nums = new int[]{1, 3, 2, 2, 3, 1};
+            p.WiggleSort(nums); Console.WriteLine(string.Join(",", nums));
+            nums = new int[]{1};
             p.WiggleSort(nums); Console.WriteLine(string.Join(",", nums));
         }
     }
