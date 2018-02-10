@@ -24,28 +24,19 @@ namespace Rextester
         var ret = new List<string>();
         var next = "JFK";
         ret.Add(next);
-        int count1 = 1;
-        int total = tickets.GetLength(0)+1;
-        DFS(dict, next, ref count1, total, ret);
+        DFS(dict, next, ret);
         return ret;
     }
         
-        void DFS(Dictionary<string, SortedDictionary<string, int>> dict, string curr, ref int count, int total, List<string> ret){
+        void DFS(Dictionary<string, SortedDictionary<string, int>> dict, string curr, List<string> ret){
             if (dict.ContainsKey(curr)){
-                //Console.WriteLine(count+" "+curr+" "+string.Join(",",dict[curr].Keys));
-                var list = dict[curr].Keys.Where(key => dict[curr][key] > 0).ToList();
-                for(int i=0;i<list.Count;i++){
-                    var next = list[i];
-                    //Console.WriteLine(count+" "+curr+" "+next+" "+string.Join(",",list));
+                //Console.WriteLine(curr+" "+string.Join(",",dict[curr].Keys));
+                while(dict[curr].Keys.Count() > 0){
+                    var next = dict[curr].Keys.First();
                     dict[curr][next]--;
-                    count++;
-                    DFS(dict, next, ref count, total, ret);
-                    if (count == total) {
-                        ret.Insert(1, next);
-                        return;
-                    }
-                    dict[curr][next]++;
-                    count--;
+                    if (dict[curr][next]==0) dict[curr].Remove(next);
+                    DFS(dict, next, ret);
+                    ret.Insert(1, next);
                 }
             }
         }
