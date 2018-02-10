@@ -11,14 +11,12 @@ namespace Rextester
     public class Program
     {
     public IList<string> FindItinerary(string[,] tickets) {
-        var dict = new Dictionary<string, SortedDictionary<string, int>>();
+        var dict = new Dictionary<string, List<string>>();
         for(int i=0;i<tickets.GetLength(0);i++){
-            SortedDictionary<string, int> sortedDict;
-            if (!dict.TryGetValue(tickets[i,0], out sortedDict)) sortedDict = new SortedDictionary<string, int>();
-            int count;
-            sortedDict.TryGetValue(tickets[i,1], out count);
-            sortedDict[tickets[i,1]] = count + 1;
-            dict[tickets[i,0]] = sortedDict;
+            List<string> list;
+            if (!dict.TryGetValue(tickets[i,0], out list)) list = new List<string>();
+            list.Add(tickets[i,1]);
+            dict[tickets[i,0]] = list;
         }
                
         var ret = new List<string>();
@@ -28,13 +26,12 @@ namespace Rextester
         return ret;
     }
         
-        void DFS(Dictionary<string, SortedDictionary<string, int>> dict, string curr, List<string> ret){
+        void DFS(Dictionary<string, List<string>> dict, string curr, List<string> ret){
             if (dict.ContainsKey(curr)){
-                //Console.WriteLine(curr+" "+string.Join(",",dict[curr].Keys));
-                while(dict[curr].Keys.Count() > 0){
-                    var next = dict[curr].Keys.First();
-                    dict[curr][next]--;
-                    if (dict[curr][next]==0) dict[curr].Remove(next);
+                var sorted = dict[curr].OrderBy(s => s);
+                while(dict[curr].Count() > 0){
+                    var next = sorted.First();
+                    dict[curr].Remove(next);
                     DFS(dict, next, ret);
                     ret.Insert(1, next);
                 }
